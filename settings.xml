@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plugin_settings SYSTEM "../../../lib/pkp/dtd/pluginSettings.dtd">
+
+<!--
+  * settings.xml
+  *
+  * Copyright (c) 2025 Simon Fraser University
+  * Copyright (c) 2025 John Willinsky
+  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+  *
+  * Default plugin settings.
+  *
+  -->
+
+<plugin_settings>
+	<setting type="string">
+		<name>cacheablePages</name>
+		<value>["about", "announcement", "help", "index", "information", "sitemap", "catalog", "article", "issue", "preprint", "preprints"]</value>
+	</setting>
+	<setting type="string">
+		<name>nonCacheableOperations</name>
+		<value>["catalog/fullSize", "catalog/thumbnail", "catalog/download", "article/download", "issue/download", "preprint/download", "preprints/fullSize", "preprints/thumbnail"]</value>
+	</setting>
+	<setting type="int">
+		<name>timeToLiveInSeconds</name>
+		<value>3600</value>
+	</setting>
+	<setting type="bool">
+		<name>useCacheHeader</name>
+		<value>true</value>
+	</setting>
+	<setting type="bool">
+		<name>useCompression</name>
+		<value>true</value>
+	</setting>
+	<setting type="bool">
+		<name>useStatistics</name>
+		<value>true</value>
+	</setting>
+</plugin_settings>
