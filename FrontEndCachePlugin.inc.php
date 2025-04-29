@@ -264,9 +264,10 @@ class FrontEndCachePlugin extends GenericPlugin
 				$cache['content'] = gzdecode($cache['content']);
 			} else {
 				header('content-encoding: gzip');
-				header('content-length: ' . strlen($cache['content']));
 			}
 		}
+
+		header('content-length: ' . strlen($cache['content']));
 	}
 
 	/**
