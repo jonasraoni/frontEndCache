@@ -18,19 +18,24 @@
 </script>
 
 <form class="pkp_form" id="frontEndCacheSettings" method="POST" action="{url router=$smarty.const.ROUTE_COMPONENT op="manage" category="generic" plugin=$pluginName verb="settings" save=true}">
-	<p>{translate key="plugins.generic.frontEndCache.description"}</p>
 	{csrf}
-	{fbvFormArea id="formArea"}
+	<p>{translate key="plugins.generic.frontEndCache.description"}</p>
+	{fbvFormArea id="frontEndCacheFormArea"}
 		{fbvFormSection title="plugins.generic.frontEndCache.general" list="true"}
 			{fbvElement type="checkbox" id="useCacheHeader" checked=$useCacheHeader label="plugins.generic.frontEndCache.useCacheHeader" translate="true"}
 			{fbvElement type="checkbox" id="useCompression" checked=$useCompression label="plugins.generic.frontEndCache.useCompression" translate="true"}
 			{fbvElement type="checkbox" id="useStatistics" checked=$useStatistics label="plugins.generic.frontEndCache.useStatistics" translate="true"}
-			<p>
-				{fbvElement type="text" id="timeToLiveInSeconds" class="checkNumbers" value=$timeToLiveInSeconds label="plugins.generic.frontEndCache.timeToLiveInSeconds"}
-				{fbvElement type="keyword" id="cacheablePages" current=$cacheablePages label="plugins.generic.frontEndCache.cacheablePages"}
-				{fbvElement type="keyword" id="nonCacheableOperations" current=$nonCacheableOperations label="plugins.generic.frontEndCache.nonCacheableOperations"}
-			</p>
+			<p>{fbvElement type="text" id="timeToLiveInSeconds" class="checkNumbers" value=$timeToLiveInSeconds label="plugins.generic.frontEndCache.timeToLiveInSeconds"}</p>
+			<p>{fbvElement type="keyword" id="cacheablePages" current=$cacheablePages label="plugins.generic.frontEndCache.cacheablePages"}</p>
+			<p>{fbvElement type="keyword" id="nonCacheableOperations" current=$nonCacheableOperations label="plugins.generic.frontEndCache.nonCacheableOperations"}</p>
 		{/fbvFormSection}
 	{/fbvFormArea}
+
+	{fbvFormArea id="frontEndCacheContexts"}
+		{fbvFormSection title="plugins.generic.frontEndCache.clearCacheInstruction" for="clearContexts[]" list="true"}
+			{fbvElement type="checkboxgroup" name="clearContexts" id="clearContexts" from=$clearContexts translate=false}
+		{/fbvFormSection}
+	{/fbvFormArea}
+
 	{fbvFormButtons submitText="common.save"}
 </form>

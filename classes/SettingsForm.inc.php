@@ -15,6 +15,7 @@ namespace APP\plugins\generic\frontEndCache\classes;
 use APP\plugins\generic\frontEndCache\FrontEndCachePlugin;
 use Application;
 use AppLocale;
+use Context;
 use Form;
 use FormValidatorCSRF;
 use FormValidatorPost;
@@ -52,6 +53,18 @@ class SettingsForm extends Form
 		$this->setData('timeToLiveInSeconds', (int) $this->plugin->getSetting($contextId, 'timeToLiveInSeconds'));
 		$this->setData('cacheablePages', [AppLocale::getLocale() => json_decode($this->plugin->getSetting($contextId, 'cacheablePages')) ?: []]);
 		$this->setData('nonCacheableOperations', [AppLocale::getLocale() => json_decode($this->plugin->getSetting($contextId, 'nonCacheableOperations')) ?: []]);
+
+		/** @var Context */
+		foreach (Application::getContextDAO()->getAll(false)->toIterator() as $context) {
+			$contexts[$context->getId()] = $context->getLocalizedName();
+		}
+
+		// Include site context
+		if (count($contexts) > 1) {
+			$contexts = ['' => '<b>' . __('navigation.home') . '</b>'] + $contexts;
+		}
+
+		$this->setData('clearContexts', $contexts);
 		parent::initData();
 	}
 
@@ -60,7 +73,7 @@ class SettingsForm extends Form
 	 */
 	public function readInputData()
 	{
-		$vars = ['timeToLiveInSeconds', 'useCacheHeader', 'useCompression', 'useStatistics'];
+		$vars = ['timeToLiveInSeconds', 'useCacheHeader', 'useCompression', 'useStatistics', 'clearContexts'];
 		$request = Application::get()->getRequest();
 		$this->setData('cacheablePages', $request->getUserVar('keywords')['cacheablePages'] ?: []);
 		$this->setData('nonCacheableOperations', $request->getUserVar('keywords')['nonCacheableOperations'] ?: []);
@@ -99,6 +112,16 @@ class SettingsForm extends Form
 			['contents' => __('common.changesSaved')]
 		);
 
-		return parent::execute();
+		$clearContexts = (array) $this->getData('clearContexts');
+		import('lib.pkp.classes.file.FileManager');
+		foreach ($clearContexts as $contextId) {
+			$contextId = (int) $contextId;
+			$basePath = \Core::getBaseDir() . '/cache/frontEndCache' . ($contextId ? "/{$contextId}" : '');
+			foreach (glob("{$basePath}/*.php") as $file) {
+				@unlink ($file);
+			}
+		}
+
+		return parent::execute(...$functionArgs);
 	}
 }

@@ -40,3 +40,6 @@ msgstr "List of prefixes to instruct the plugin which pages should be cacheable"
 
 msgid "plugins.generic.frontEndCache.nonCacheableOperations"
 msgstr "List of pages/operations where the cache shouldn't be enabled"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Select the contexts for which you would like the cache to be cleared"
