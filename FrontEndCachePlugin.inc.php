@@ -189,21 +189,18 @@ class FrontEndCachePlugin extends GenericPlugin
 			return $this->cacheFilename;
 		}
 
+		$context = $request->getContext();
 		import('lib.pkp.classes.file.FileManager');
 		$fileManager = new FileManager();
-		$basePath = Core::getBaseDir() . '/cache/frontEndCache';
+		$basePath = Core::getBaseDir() . '/cache/frontEndCache' . ($context ? "/{$context->getId()}" : '');
 		if (!$fileManager->fileExists($basePath)) {
 			$fileManager->mkdir($basePath);
 		}
 
-		$context = $request->getContext();
-		$id = md5(implode('/', [
-			$context ? $context->getPath() : '',
-			$request->isPathInfoEnabled()
-				? ($_SERVER['PATH_INFO'] ?? 'index')
-				: $request->getUserVar('page') . '/' . $request->getUserVar('op') . '/' . $request->getUserVar('path'),
-			AppLocale::getLocale()
-		]));
+		$id = md5(
+			($request->isPathInfoEnabled() ? ($_SERVER['PATH_INFO'] ?? 'index') : $request->getUserVar('page') . '/' . $request->getUserVar('op') . '/' . $request->getUserVar('path'))
+			. AppLocale::getLocale()
+		);
 		return $this->cacheFilename = "{$basePath}/{$id}.php";
 	}
 
