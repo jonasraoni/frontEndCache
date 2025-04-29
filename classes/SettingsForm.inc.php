@@ -61,7 +61,7 @@ class SettingsForm extends Form
 
 		// Include site context
 		if (count($contexts) > 1) {
-			$contexts = ['' => '<b>' . __('navigation.home') . '</b>'] + $contexts;
+			$contexts = ['' => __('plugins.generic.frontEndCache.sharedContent')] + $contexts;
 		}
 
 		$this->setData('clearContexts', $contexts);

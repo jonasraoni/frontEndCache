@@ -43,3 +43,6 @@ msgstr "List of pages/operations where the cache shouldn't be enabled"
 
 msgid "plugins.generic.frontEndCache.clearCacheInstruction"
 msgstr "Select the contexts for which you would like the cache to be cleared"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Shared pages"

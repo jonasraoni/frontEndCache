@@ -15,6 +15,11 @@
 	document.querySelectorAll('.checkNumbers').forEach(function (input) {ldelim}
 		input.addEventListener("input", e => input.value = (isNaN(input.value)) ? input.value.replace(e.data, '') : input.value);
 	{rdelim})
+
+	document.getElementById('selectAllContexts').addEventListener('change', function() {ldelim}
+		const checkboxes = document.querySelectorAll('input[name="clearContexts[]"]');
+		checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+	{rdelim});
 </script>
 
 <form class="pkp_form" id="frontEndCacheSettings" method="POST" action="{url router=$smarty.const.ROUTE_COMPONENT op="manage" category="generic" plugin=$pluginName verb="settings" save=true}">
@@ -33,6 +38,7 @@
 
 	{fbvFormArea id="frontEndCacheContexts"}
 		{fbvFormSection title="plugins.generic.frontEndCache.clearCacheInstruction" for="clearContexts[]" list="true"}
+			{fbvElement type="checkbox" id="selectAllContexts" label="common.selectAll"}
 			{fbvElement type="checkboxgroup" name="clearContexts" id="clearContexts" from=$clearContexts translate=false}
 		{/fbvFormSection}
 	{/fbvFormArea}
