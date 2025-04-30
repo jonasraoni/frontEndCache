@@ -38,8 +38,8 @@
 
 	{fbvFormArea id="frontEndCacheContexts"}
 		{fbvFormSection title="plugins.generic.frontEndCache.clearCacheInstruction" for="clearContexts[]" list="true"}
-			{fbvElement type="checkbox" id="selectAllContexts" label="common.selectAll"}
-			{fbvElement type="checkboxgroup" name="clearContexts" id="clearContexts" from=$clearContexts translate=false}
+			{fbvElement type="checkbox" id="selectAllContexts" name="selectAllContexts" label="common.selectAll"}
+			{fbvElement type="checkboxgroup" name="clearContexts" id="clearContexts" from=$clearContexts selected=[] translate=false}
 		{/fbvFormSection}
 	{/fbvFormArea}
 

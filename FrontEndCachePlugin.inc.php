@@ -230,7 +230,7 @@ class FrontEndCachePlugin extends GenericPlugin
 
 		$this->triggerStatistics($request, $cache);
 		$this->sendHeaders($cache);
-		echo $cache['output'];
+		echo $cache['content'];
 		return true;
 	}
 
