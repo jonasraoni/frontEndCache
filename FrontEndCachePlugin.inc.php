@@ -39,7 +39,7 @@ import('lib.pkp.classes.plugins.GenericPlugin');
 
 class FrontEndCachePlugin extends GenericPlugin
 {
-	private const COUNTER_DUPLICATED_CLICK_THRESHOLD = 30;
+	private const COUNTER_DUPLICATED_CLICK_THRESHOLD = 10;
 	private const GZIP_HEADER = "\x1f\x8b";
 	/** Whether to send cache headers to the client */
 	private bool $useCacheHeader = true;
