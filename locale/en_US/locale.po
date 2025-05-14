@@ -32,6 +32,9 @@ msgstr "Use compression: When enabled the plugin will attempt to compact the con
 msgid "plugins.generic.frontEndCache.useStatistics"
 msgstr "Use statistics: When enabled the plugin will attempt to feed the application statistics when serving a cached page"
 
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "Cache CSS: When enabled the plugin will cache dynamic CSS content"
+
 msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
 msgstr "Time to live of each cached page in seconds: After the time is over, the cached page will be invalidated and regenerated"
 

@@ -19,6 +19,9 @@ use AppLocale;
 use Config;
 use Core;
 use DAORegistry;
+use DateTimeImmutable;
+use DateTimeInterface;
+use Exception;
 use FileManager;
 use GenericPlugin;
 use HookRegistry;
@@ -31,14 +34,20 @@ use Request;
 use Series;
 use SeriesDAO;
 use Services;
+use SplFileObject;
 use Submission;
 use TemplateManager;
+use Throwable;
 use Validation;
 
 import('lib.pkp.classes.plugins.GenericPlugin');
 
 class FrontEndCachePlugin extends GenericPlugin
 {
+	/**
+	 * A value to invalidate the cache if its structure gets changed in the future
+	 */
+	private const STRUCTURE_VERSION = 1;
 	private const COUNTER_DUPLICATED_CLICK_THRESHOLD = 10;
 	private const GZIP_HEADER = "\x1f\x8b";
 	/** Whether to send cache headers to the client */
@@ -47,6 +56,8 @@ class FrontEndCachePlugin extends GenericPlugin
 	private bool $useCompression = true;
 	/** Whether to trigger statistics when serving cached content */
 	private bool $useStatistics = true;
+	/** Whether to cache CSS files */
+	private bool $cacheCss = true;
 	/** Time to live of the cache in seconds */
 	private int $timeToLiveInSeconds = 3600;
 	/**
@@ -73,7 +84,7 @@ class FrontEndCachePlugin extends GenericPlugin
 		'preprint/download',
 		'preprints/fullSize', 'preprints/thumbnail'
 	];
-	private ?string $cacheFilename;
+	private ?string $cacheFilename = null;
 	private bool $wasStatisticsTriggered = false;
 
 	/**
@@ -91,6 +102,7 @@ class FrontEndCachePlugin extends GenericPlugin
 		$this->useCacheHeader = (bool) $this->getSetting($this->getCurrentContextId(), 'useCacheHeader');
 		$this->useCompression = function_exists('gzencode') && (bool) $this->getSetting($this->getCurrentContextId(), 'useCompression');
 		$this->useStatistics = (bool) $this->getSetting($this->getCurrentContextId(), 'useStatistics');
+		$this->cacheCss = (bool) $this->getSetting($this->getCurrentContextId(), 'cacheCss');
 		$this->timeToLiveInSeconds = (int) $this->getSetting($this->getCurrentContextId(), 'timeToLiveInSeconds');
 		$this->cacheablePages = json_decode($this->getSetting($this->getCurrentContextId(), 'cacheablePages')) ?: [];
 		$this->nonCacheableOperations = json_decode($this->getSetting($this->getCurrentContextId(), 'nonCacheableOperations')) ?: [];
@@ -103,19 +115,24 @@ class FrontEndCachePlugin extends GenericPlugin
 	/**
 	 * Setups the main plugin hook
 	 */
-	public function installDispatcherHook(): void
+	private function installDispatcherHook(): void
 	{
 		HookRegistry::register('Dispatcher::dispatch', function (string $hookName, Request $request){
-			if (!$this->isCacheable($request)) {
+			try {
+				if (!$this->isCacheable($request)) {
+					return false;
+				}
+
+				if ($this->trySendCache($request)) {
+					exit;
+				}
+
+				$this->cacheContent($request);
+				return false;
+			} catch (Throwable $e) {
+				error_log("Unexpected failure at cache plugin\n" . $e);
 				return false;
 			}
-
-			if ($this->trySendCache($request)) {
-				exit;
-			}
-
-			$this->cacheContent($request);
-			return false;
 		});
 	}
 
@@ -144,7 +161,7 @@ class FrontEndCachePlugin extends GenericPlugin
 	/**
 	 * Determine whether or not the request is cacheable.
 	 */
-	public function isCacheable(Request $request): bool
+	private function isCacheable(Request $request): bool
 	{
 		if (
 			defined('SESSION_DISABLE_INIT')
@@ -156,10 +173,18 @@ class FrontEndCachePlugin extends GenericPlugin
 		}
 
 		if ($request->isPathInfoEnabled()) {
+			if ($this->cacheCss && strpos($request->getRequestPath(), COMPONENT_ROUTER_PATHINFO_MARKER . '/page/page/css')) {
+				return true;
+			}
+
 			if (!empty($_GET)) {
 				return false;
 			}
 		} else {
+			if ($this->cacheCss && [$request->getUserVar('component'), $request->getUserVar('op')] === ['page.page', 'css']) {
+				return true;
+			}
+
 			$params = array_merge(Application::get()->getContextList(), ['page', 'op', 'path']);
 			if (!empty($_GET) && count(array_diff(array_keys($_GET), $params)) !== 0) {
 				return false;
@@ -183,7 +208,7 @@ class FrontEndCachePlugin extends GenericPlugin
 	/**
 	 * @copydoc PKPRouter::getCacheFilename()
 	 */
-	public function getCacheFilename(Request $request): string
+	private function getCacheFilename(Request $request): string
 	{
 		if (isset($this->cacheFilename)) {
 			return $this->cacheFilename;
@@ -197,53 +222,74 @@ class FrontEndCachePlugin extends GenericPlugin
 			$fileManager->mkdir($basePath);
 		}
 
-		$id = md5(
-			($request->isPathInfoEnabled() ? ($_SERVER['PATH_INFO'] ?? 'index') : $request->getUserVar('page') . '/' . $request->getUserVar('op') . '/' . $request->getUserVar('path'))
-			. AppLocale::getLocale()
-		);
+		$id = md5(($_SERVER['PATH_INFO'] ?? 'index') . http_build_query($request->getUserVars()) . AppLocale::getLocale());
 		return $this->cacheFilename = "{$basePath}/{$id}.php";
+	}
+
+	/**
+	 * Retrieves the cache
+	 *
+	 * @return ?array{time: int, headers: string[], content: string, hash: int, counted: bool, version: int}
+	 */
+	public function getCache(string $filename, bool $validateExpiration = false): ?array
+	{
+		try {
+			if (!file_exists($filename)) {
+				return null;
+			}
+
+			if ($validateExpiration && filemtime($filename) + $this->timeToLiveInSeconds <= time()) {
+				return null;
+			}
+
+			$cache = include $filename;
+			if (($cache['version'] ?? null) !== static::STRUCTURE_VERSION) {
+				return null;
+			}
+
+			return $cache;
+		} catch (Throwable $e) {
+			error_log("Failure while including the cache file\n" . $e);
+			return null;
+		}
 	}
 
 	/**
 	 * Attempts to send the cached data
 	 */
-	public function trySendCache(Request $request): bool
+	private function trySendCache(Request $request): bool
 	{
 		$filename = $this->getCacheFilename($request);
-		if (!file_exists($filename)) {
+		if (!($cache = $this->getCache($filename, true))) {
 			return false;
 		}
 
-		$cache = require_once $filename;
-		// Validates the browser cache
-		if ($this->useCacheHeader && ((int) $request->getIfModifiedSince() >= $cache['time'] || ($_SERVER['HTTP_IF_NONE_MATCH'] ?? null) === (string) $cache['hash'])) {
+		if ($this->useCacheHeader && ($_SERVER['HTTP_IF_NONE_MATCH'] ?? null) === (string) $cache['hash']) {
 			$this->triggerStatistics($request, $cache);
 			header('HTTP/1.1 304 Not Modified', true, 304);
 			return true;
 		}
 
-		$expiry = $cache['time'] + $this->timeToLiveInSeconds;
-		$timeToLiveInSeconds = $expiry - time();
-		if ($timeToLiveInSeconds <= 0) {
-			return false;
-		}
-
 		$this->triggerStatistics($request, $cache);
-		$this->sendHeaders($cache);
+		// Use the modified date of the cached file, as the cache might be very old (if it was regenerated a long time ago, but still valid)
+		$this->sendHeaders($cache, DateTimeImmutable::createFromFormat('U', filemtime($filename)));
 		echo $cache['content'];
 		return true;
 	}
 
 	/**
 	 * Send the headers
+	 *
+	 * @param ?array{time: int, headers: string[], content: string, hash: int, counted: bool, version: int} $cache
+	 * @param ?DateTimeInterface $revalidatedDate If not specified, the function will use the date when the cache was generated
 	 */
-	public function sendHeaders(array &$cache): void
+	private function sendHeaders(array &$cache, ?DateTimeInterface $revalidatedDate = null): void
 	{
 		foreach ($cache['headers'] as $header) {
 			header($header);
 		}
 
-		$expiry = $cache['time'] + $this->timeToLiveInSeconds;
+		$expiry = ($revalidatedDate ?? DateTimeImmutable::createFromFormat('U', $cache['time']))->getTimestamp() + $this->timeToLiveInSeconds;
 		$timeToLiveInSeconds = $expiry - time();
 		// According to the COUNTER specs, if the same URL receives N views under 30 seconds, then it be counted as a single view
 		// In case the URL leads to an entry in the statistics, we setup the max-age to 30 seconds
@@ -272,10 +318,12 @@ class FrontEndCachePlugin extends GenericPlugin
 
 	/**
 	 * Feed data for the statistics plugin
+	 *
+	 * @param ?array{time: int, headers: string[], content: string, hash: int, counted: bool, version: int} $cache
 	 */
-	public function triggerStatistics(Request $request, array $cache): void
+	private function triggerStatistics(Request $request, array $cache): void
 	{
-		if (!$this->useStatistics) {
+		if (!$this->useStatistics || !$cache['counted']) {
 			return;
 		}
 
@@ -290,7 +338,7 @@ class FrontEndCachePlugin extends GenericPlugin
 
 		// OMP
 		if (($seriesId = $cache['series'] ?? null) && class_exists(Series::class)) {
-			$seriesDao = DAORegistry::getDAO('SeriesDAO'); /** @var SeriesDAO Dao */
+			$seriesDao = DAORegistry::getDAO(name: 'SeriesDAO'); /** @var SeriesDAO Dao */
 			$templateManager->assign('series', $seriesDao->getById($seriesId));
 		}
 
@@ -308,7 +356,7 @@ class FrontEndCachePlugin extends GenericPlugin
 	/**
 	 * Cache the output in a local file
 	 */
-	public function cacheContent(Request $request): void
+	private function cacheContent(Request $request): void
 	{
 		$cache = [];
 		// Retrieve and store useful IDs from the template at the end of the processing
@@ -335,21 +383,60 @@ class FrontEndCachePlugin extends GenericPlugin
 			return false;
 		}, HOOK_SEQUENCE_LAST);
 
-		ob_start(function (string $content) use (&$cache): string {
-			if (!$content) {
+		ob_start(function (string $output) use (&$cache): string {
+			if (!$output) {
 				return '';
 			}
 
-			$filename = $this->getCacheFilename(Application::get()->getRequest());
-			$output = $this->useCompression ? gzencode($content) : $content;
 			$cache += [
 				'time' => time(),
 				'headers' => headers_list(),
+				'content' => $output = $this->useCompression ? gzencode($output) : $output,
 				'hash' => crc32($output),
-				'content' => $output,
-				'counted' => $this->wasStatisticsTriggered
+				'counted' => $this->wasStatisticsTriggered,
+				'version' => static::STRUCTURE_VERSION
 			];
-			file_put_contents($filename, '<?php return ' . var_export($cache, true) . ';', LOCK_EX);
+
+			try {
+				//throw new Exception('');
+				$filename = $this->getCacheFilename(Application::get()->getRequest());
+				$cacheExists = file_exists($filename);
+				$file = new SplFileObject($filename, 'c');
+				// Acquire a shared lock for reading
+				if ($file->flock(LOCK_SH)) {
+					$existingCache = null;
+					try {
+						$existingCache = $cacheExists ? include $filename : null;
+						if (($existingCache['version'] ?? null) !== static::STRUCTURE_VERSION) {
+							$existingCache = null;
+						}
+					} catch (Throwable $e) {
+						error_log("Failure while including the cache file\n" . $e);
+					}
+
+					// If the cache is still valid, we don't need to rewrite the file, but we update its modified date as a way to specify that it was revalidated
+					if (($existingCache['hash'] ?? null) === $cache['hash']) {
+						$file->flock(LOCK_UN);
+						touch($filename);
+						$this->sendHeaders($cache);
+						return $output;
+					}
+
+					// Upgrade to an exclusive lock for rewriting the cache
+					if ($file->flock(LOCK_EX | LOCK_NB)) {
+						$file->ftruncate(0);
+						$file->fwrite('<?php return ' . var_export($cache, true) . ';');
+						$file->fflush();
+						$file->flock(LOCK_UN);
+						$this->sendHeaders($cache);
+						return $output;
+					}
+				}
+			} catch (Exception $e) {
+				error_log("Failure when generating the cache\n" . $e);
+			}
+
+			// If we couldn't acquire the lock or had an error, just return the output
 			$this->sendHeaders($cache);
 			return $output;
 		});

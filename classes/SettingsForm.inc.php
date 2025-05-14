@@ -50,6 +50,7 @@ class SettingsForm extends Form
 		$this->setData('useCacheHeader', (bool) $this->plugin->getSetting($contextId, 'useCacheHeader'));
 		$this->setData('useCompression', (bool) $this->plugin->getSetting($contextId, 'useCompression'));
 		$this->setData('useStatistics', (bool) $this->plugin->getSetting($contextId, 'useStatistics'));
+		$this->setData('cacheCss', (bool) $this->plugin->getSetting($contextId, 'cacheCss'));
 		$this->setData('timeToLiveInSeconds', (int) $this->plugin->getSetting($contextId, 'timeToLiveInSeconds'));
 		$this->setData('cacheablePages', [AppLocale::getLocale() => json_decode($this->plugin->getSetting($contextId, 'cacheablePages')) ?: []]);
 		$this->setData('nonCacheableOperations', [AppLocale::getLocale() => json_decode($this->plugin->getSetting($contextId, 'nonCacheableOperations')) ?: []]);
@@ -73,7 +74,7 @@ class SettingsForm extends Form
 	 */
 	public function readInputData()
 	{
-		$vars = ['timeToLiveInSeconds', 'useCacheHeader', 'useCompression', 'useStatistics', 'clearContexts'];
+		$vars = ['timeToLiveInSeconds', 'useCacheHeader', 'useCompression', 'useStatistics', 'cacheCss', 'clearContexts'];
 		$request = Application::get()->getRequest();
 		$this->setData('cacheablePages', $request->getUserVar('keywords')['cacheablePages'] ?: []);
 		$this->setData('nonCacheableOperations', $request->getUserVar('keywords')['nonCacheableOperations'] ?: []);
@@ -101,6 +102,7 @@ class SettingsForm extends Form
 		$this->plugin->updateSetting($contextId, 'useCacheHeader', (bool) $this->getData('useCacheHeader'), 'bool');
 		$this->plugin->updateSetting($contextId, 'useCompression', (bool) $this->getData('useCompression'), 'bool');
 		$this->plugin->updateSetting($contextId, 'useStatistics', (bool) $this->getData('useStatistics'), 'bool');
+		$this->plugin->updateSetting($contextId, 'cacheCss', (bool) $this->getData('cacheCss'), 'bool');
 		$this->plugin->updateSetting($contextId, 'cacheablePages', json_encode($this->getData('cacheablePages')));
 		$this->plugin->updateSetting($contextId, 'nonCacheableOperations', json_encode($this->getData('nonCacheableOperations')));
 

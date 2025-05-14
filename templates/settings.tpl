@@ -9,7 +9,7 @@
  *}
 <script>
 	$(function () {ldelim}
-		$('#frontEndCache').pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
+		$('#frontEndCacheSettings').pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
 	{rdelim});
 
 	document.querySelectorAll('.checkNumbers').forEach(function (input) {ldelim}
@@ -30,6 +30,7 @@
 			{fbvElement type="checkbox" id="useCacheHeader" checked=$useCacheHeader label="plugins.generic.frontEndCache.useCacheHeader" translate="true"}
 			{fbvElement type="checkbox" id="useCompression" checked=$useCompression label="plugins.generic.frontEndCache.useCompression" translate="true"}
 			{fbvElement type="checkbox" id="useStatistics" checked=$useStatistics label="plugins.generic.frontEndCache.useStatistics" translate="true"}
+			{fbvElement type="checkbox" id="cacheCss" checked=$cacheCss label="plugins.generic.frontEndCache.cacheCss" translate="true"}
 			<p>{fbvElement type="text" id="timeToLiveInSeconds" class="checkNumbers" value=$timeToLiveInSeconds label="plugins.generic.frontEndCache.timeToLiveInSeconds"}</p>
 			<p>{fbvElement type="keyword" id="cacheablePages" current=$cacheablePages label="plugins.generic.frontEndCache.cacheablePages"}</p>
 			<p>{fbvElement type="keyword" id="nonCacheableOperations" current=$nonCacheableOperations label="plugins.generic.frontEndCache.nonCacheableOperations"}</p>
