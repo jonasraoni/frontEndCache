@@ -26,7 +26,8 @@ import('lib.pkp.classes.form.Form');
 
 class SettingsForm extends Form
 {
-	public FrontEndCachePlugin $plugin;
+	/** @var FrontEndCachePlugin */
+	public $plugin;
 
 	/**
 	 * @copydoc Form::__construct

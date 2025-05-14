@@ -44,27 +44,22 @@ import('lib.pkp.classes.plugins.GenericPlugin');
 
 class FrontEndCachePlugin extends GenericPlugin
 {
-	/**
-	 * A value to invalidate the cache if its structure gets changed in the future
-	 */
+	/** A value to invalidate the cache if its structure gets changed in the future */
 	private const STRUCTURE_VERSION = 1;
 	private const COUNTER_DUPLICATED_CLICK_THRESHOLD = 10;
 	private const GZIP_HEADER = "\x1f\x8b";
-	/** Whether to send cache headers to the client */
-	private bool $useCacheHeader = true;
-	/** Whether to use GZIP compression */
-	private bool $useCompression = true;
-	/** Whether to trigger statistics when serving cached content */
-	private bool $useStatistics = true;
-	/** Whether to cache CSS files */
-	private bool $cacheCss = true;
-	/** Time to live of the cache in seconds */
-	private int $timeToLiveInSeconds = 3600;
-	/**
-	 * List of cacheable pages
-	 * @var string[]
-	 */
-	private array $cacheablePages = [
+	/** @var bool Whether to send cache headers to the client */
+	private $useCacheHeader = true;
+	/** @var bool Whether to use GZIP compression */
+	private $useCompression = true;
+	/** @var bool Whether to trigger statistics when serving cached content */
+	private $useStatistics = true;
+	/** @var bool Whether to cache CSS files */
+	private $cacheCss = true;
+	/** @var int Time to live of the cache in seconds */
+	private $timeToLiveInSeconds = 3600;
+	/** @var string[] List of cacheable pages */
+	private $cacheablePages = [
 		'about', 'announcement', 'help', 'index', 'information', 'sitemap', 'catalog',
 		// OJS
 		'article', 'issue',
@@ -72,10 +67,8 @@ class FrontEndCachePlugin extends GenericPlugin
 		'preprint', 'preprints'
 	];
 	/**
-	 * List of non-cacheable pages/operations
-	 * @var string[]
-	 */
-	private array $nonCacheableOperations = [
+	 * @var string[] List of non-cacheable pages/operations */
+	private $nonCacheableOperations = [
 		'catalog/fullSize', 'catalog/thumbnail', 'catalog/download',
 		// OJS
 		'article/download',
@@ -84,8 +77,10 @@ class FrontEndCachePlugin extends GenericPlugin
 		'preprint/download',
 		'preprints/fullSize', 'preprints/thumbnail'
 	];
-	private ?string $cacheFilename = null;
-	private bool $wasStatisticsTriggered = false;
+	/** @var ?string Cached filename */
+	private $cacheFilename = null;
+	/** @var bool Keeps track if statistics were generated for the current request */
+	private $wasStatisticsTriggered = false;
 
 	/**
 	 * @copydoc Plugin::register
@@ -104,8 +99,8 @@ class FrontEndCachePlugin extends GenericPlugin
 		$this->useStatistics = (bool) $this->getSetting($this->getCurrentContextId(), 'useStatistics');
 		$this->cacheCss = (bool) $this->getSetting($this->getCurrentContextId(), 'cacheCss');
 		$this->timeToLiveInSeconds = (int) $this->getSetting($this->getCurrentContextId(), 'timeToLiveInSeconds');
-		$this->cacheablePages = json_decode($this->getSetting($this->getCurrentContextId(), 'cacheablePages')) ?: [];
-		$this->nonCacheableOperations = json_decode($this->getSetting($this->getCurrentContextId(), 'nonCacheableOperations')) ?: [];
+		$this->cacheablePages = (array) json_decode($this->getSetting($this->getCurrentContextId(), 'cacheablePages')) ?: [];
+		$this->nonCacheableOperations = (array) json_decode($this->getSetting($this->getCurrentContextId(), 'nonCacheableOperations')) ?: [];
 		$this->useAutoLoader();
 		$this->installDispatcherHook();
 		return $success;
@@ -338,7 +333,7 @@ class FrontEndCachePlugin extends GenericPlugin
 
 		// OMP
 		if (($seriesId = $cache['series'] ?? null) && class_exists(Series::class)) {
-			$seriesDao = DAORegistry::getDAO(name: 'SeriesDAO'); /** @var SeriesDAO Dao */
+			$seriesDao = DAORegistry::getDAO('SeriesDAO'); /** @var SeriesDAO Dao */
 			$templateManager->assign('series', $seriesDao->getById($seriesId));
 		}
 
