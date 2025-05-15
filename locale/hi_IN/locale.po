@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Hindi <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/hi_IN/>\n"
+"Language: hi_IN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "फ्रंट एंड कैश प्लगइन"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "यह प्लगइन एप्लिकेशन के मुख्य पृष्ठों में कैश जोड़ता है।"
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "सामान्य सेटिंग्स"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "कैश हेडर का उपयोग करें: सक्षम होने पर, प्लगइन ब्राउज़र को कैश हेडर भेजेगा"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "संपीड़न का उपयोग करें: सक्षम होने पर, प्लगइन gzip का उपयोग करके सामग्री को संपीड़ित करने का प्रयास करेगा"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "सांख्यिकी का उपयोग करें: सक्षम होने पर, प्लगइन कैश्ड पृष्ठ परोसते सम"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "कैश CSS: सक्षम होने पर, प्लगइन डायनामिक CSS सामग्री को कैश करेगा"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "प्रत्येक कैश्ड पृष्ठ का जीवनकाल सेकंड में: इस समय के बाद, कैश्ड पृष्ठ अमान्य हो जाएगा और पुनः उत्पन्न होगा"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "प्लगइन को निर्देश देने के लिए उपसर्गों की सूची कि कौन से पृष्ठ कैश योग्य होने चाहिए"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "पृष्ठों/संचालनों की सूची जहां कैश सक्षम नहीं होना चाहिए"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "उन संदर्भों का चयन करें जिनके लिए आप कैश साफ़ करना चाहते हैं"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "साझा पृष्ठ"

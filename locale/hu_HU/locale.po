@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Hungarian <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/hu_HU/>\n"
+"Language: hu_HU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Előtér-gyorsítótár bővítmény"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Ez a bővítmény gyorsítótárat ad az alkalmazás fő oldalaihoz."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Általános beállítások"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Gyorsítótár fejléc használata: ha engedélyezve van, a bővítmény gyorsítótár fejléceket küld a böngészőnek"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Tömörítés használata: Ha engedélyezve van, a bővítmény megpróbálja tömöríteni a tartalmat gzip segítségével"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Statisztikák használata: Ha engedélyezve van, a bővítmény megpróbálja frissíteni az alkalmazás statisztikáit gyorsítótárazott oldal kiszolgálásakor"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "CSS gyorsítótár: Ha engedélyezve van, a bővítmény gyorsítótárazza a dinamikus CSS tartalmat"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Minden gyorsítótárazott oldal élettartama másodpercben: Ez idő elteltével az oldal érvénytelenítésre kerül és újragenerálódik"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Előtagok listája, amelyek segítségével a bővítmény megtudja, mely oldalakat kell gyorsítótárazni"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Azon oldalak/műveletek listája, ahol a gyorsítótár nem engedélyezett"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Válassza ki azokat a környezeteket, amelyeknél törölni szeretné a gyorsítótárat"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Megosztott oldalak"

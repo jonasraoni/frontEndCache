@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Catalan <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/ca_ES/>\n"
+"Language: ca_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Connector de memòria cau de front-end"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Aquest connector afegeix memòria cau a les pàgines principals de l'aplicació."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Configuració general"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Utilitza capçalera de memòria cau: quan està activat, el connector enviarà capçaleres de memòria cau al navegador"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Utilitza compressió: Quan està activat, el connector intentarà comprimir el contingut utilitzant gzip"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Utilitza estadístiques: Quan està activat, el connector intentarà alimentar les estadístiques de l'aplicació quan serveixi una pàgina en memòria cau"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "Memòria cau CSS: Quan està activat, el connector emmagatzemarà en memòria cau el contingut CSS dinàmic"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Temps de vida de cada pàgina en memòria cau en segons: Després d'aquest temps, la pàgina en memòria cau s'invalidarà i es regenerarà"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Llista de prefixos per indicar al connector quines pàgines s'han de posar en memòria cau"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Llista de pàgines/operacions on no s'ha d'activar la memòria cau"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Seleccioneu els contextos per als quals voleu esborrar la memòria cau"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Pàgines compartides"

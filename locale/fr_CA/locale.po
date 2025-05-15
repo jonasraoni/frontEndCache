@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: French (Canada) <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/fr_CA/>\n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Plugiciel de cache frontal"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Ce plugiciel ajoute un cache aux pages principales de l'application."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Paramètres généraux"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Utiliser l'en-tête de cache : lorsqu'activé, le plugiciel enverra des en-têtes de cache au navigateur"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Utiliser la compression : Lorsqu'activé, le plugiciel tentera de compresser le contenu en utilisant gzip"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Utiliser les statistiques : Lorsqu'activé, le plugiciel tentera d'alimenter les statistiques de l'application lors de la diffusion d'une page en cache"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "Cache CSS : Lorsqu'activé, le plugiciel mettra en cache le contenu CSS dynamique"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Durée de vie de chaque page en cache en secondes : Après ce délai, la page en cache sera invalidée et régénérée"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Liste des préfixes pour indiquer au plugiciel quelles pages doivent être mises en cache"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Liste des pages/opérations pour lesquelles le cache ne doit pas être activé"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Sélectionnez les contextes pour lesquels vous souhaitez effacer le cache"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Pages partagées"

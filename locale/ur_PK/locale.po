@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Urdu <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/ur_PK/>\n"
+"Language: ur_PK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "فرنٹ اینڈ کیش پلگ ان"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "یہ پلگ ان ایپلیکیشن کے مرکزی صفحات پر کیش شامل کرتا ہے۔"
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "عام ترتیبات"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "کیش ہیڈر استعمال کریں: جب فعال ہو تو، پلگ ان براؤزر کو کیش ہیڈر بھیجے گا"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "کمپریشن استعمال کریں: جب فعال ہو تو، پلگ ان gzip استعمال کرتے ہوئے مواد کو کمپریس کرنے کی کوشش کرے گا"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "اعدادوشمار استعمال کریں: جب فعال ہو تو، پلگ ان کیش شدہ صفحہ پیش کرتے وقت ایپلیکیشن کے اعدادوشمار کو اپ ڈیٹ کرنے کی کوشش کرے گا"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "کیش CSS: جب فعال ہو تو، پلگ ان متحرک CSS مواد کو کیش کرے گا"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "ہر کیش شدہ صفحہ کی زندگی کا وقت سیکنڈ میں: اس وقت کے بعد، کیش شدہ صفحہ ختم ہو جائے گا اور دوبارہ تخلیق کیا جائے گا"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "پلگ ان کو بتانے کے لیے سابقے کی فہرست کہ کون سے صفحات کو کیش کرنا چاہیے"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "صفحات/عمل کی فہرست جہاں کیش کو فعال نہیں کرنا چاہیے"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "ان سیاق و سباق کو منتخب کریں جن کے لیے آپ کیش صاف کرنا چاہتے ہیں"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "مشترکہ صفحات"

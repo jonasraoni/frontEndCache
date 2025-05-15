@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Japanese <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/ja_JP/>\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "フロントエンドキャッシュプラグイン"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "このプラグインはアプリケーションのメインページにキャッシュを追加します。"
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "一般設定"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "キャッシュヘッダーを使用：有効にすると、プラグインはブラウザにキャッシュヘッダーを送信します"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "圧縮を使用：有効にすると、プラグインはgzipを使用してコンテンツを圧縮しようとします"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "統計を使用：有効にすると、プラグインはキャッシュページを提供する際にアプリケーション統計を更新しようとします"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "CSSキャッシュ：有効にすると、プラグインは動的CSSコンテンツをキャッシュします"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "キャッシュページの生存時間（秒）：この時間が経過すると、キャッシュページは無効になり再生成されます"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "キャッシュ可能なページをプラグインに指示するプレフィックスのリスト"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "キャッシュを有効にすべきでないページ/操作のリスト"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "キャッシュをクリアしたいコンテキストを選択してください"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "共有ページ"

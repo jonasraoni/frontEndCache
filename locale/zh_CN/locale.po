@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese (Simplified) <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/zh_CN/>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "前端缓存插件"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "此插件为应用程序的主页添加缓存功能。"
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "常规设置"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "使用缓存头：启用后，插件将向浏览器发送缓存头"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "使用压缩：启用后，插件将尝试使用gzip压缩内容"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "使用统计：启用后，插件在提供缓存页面时将尝试更新应用统计信息"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "缓存CSS：启用后，插件将缓存动态CSS内容"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "每个缓存页面的生存时间（秒）：超过此时间后，缓存页面将失效并重新生成"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "指示插件应缓存哪些页面的前缀列表"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "不应启用缓存的页面/操作列表"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "选择要清除缓存的上下文"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "共享页面"

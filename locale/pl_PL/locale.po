@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Polish <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/pl_PL/>\n"
+"Language: pl_PL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Wtyczka pamięci podręcznej front-end"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Ta wtyczka dodaje pamięć podręczną do głównych stron aplikacji."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Ustawienia ogólne"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Użyj nagłówka cache: gdy włączone, wtyczka będzie wysyłać nagłówki cache do przeglądarki"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Użyj kompresji: Gdy włączone, wtyczka spróbuje skompresować zawartość używając gzip"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Użyj statystyk: Gdy włączone, wtyczka spróbuje zaktualizować statystyki aplikacji podczas serwowania strony z cache"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "Cache CSS: Gdy włączone, wtyczka będzie przechowywać dynamiczną zawartość CSS w pamięci podręcznej"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Czas życia każdej strony w cache w sekundach: Po tym czasie strona w cache zostanie unieważniona i wygenerowana ponownie"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Lista prefiksów określających, które strony powinny być cachowane"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Lista stron/operacji, dla których nie należy włączać cache"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Wybierz konteksty, dla których chcesz wyczyścić cache"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Współdzielone strony"

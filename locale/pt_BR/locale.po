@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Portuguese (Brazil) <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/pt_BR/>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Plugin de cache de front-end"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Este plugin adiciona cache às páginas principais do aplicativo."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Configurações gerais"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Usar cabeçalho de cache: quando ativado, o plugin enviará cabeçalhos de cache para o navegador"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Usar compactação: Quando ativado, o plugin tentará compactar o conteúdo usando gzip"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Usar estatísticas: Quando ativado, o plugin tentará alimentar as estatísticas do aplicativo ao servir uma página em cache"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "Cache CSS: Quando ativado, o plugin armazenará em cache o conteúdo CSS dinâmico"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Tempo de vida de cada página em cache em segundos: Após esse tempo, a página em cache será invalidada e regenerada"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Lista de prefixos para instruir o plugin sobre quais páginas devem ser armazenadas em cache"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Lista de páginas/operações onde o cache não deve ser habilitado"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Selecione os contextos para os quais deseja limpar o cache"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Páginas compartilhadas"

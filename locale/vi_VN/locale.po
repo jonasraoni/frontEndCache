@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Vietnamese <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/vi_VN/>\n"
+"Language: vi_VN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Tiện ích bộ nhớ đệm giao diện"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Tiện ích này thêm bộ nhớ đệm vào các trang chính của ứng dụng."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Cài đặt chung"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Sử dụng tiêu đề bộ nhớ đệm: khi bật, tiện ích sẽ gửi tiêu đề bộ nhớ đệm đến trình duyệt"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Sử dụng nén: Khi bật, tiện ích sẽ cố gắng nén nội dung bằng gzip"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Sử dụng thống kê: Khi bật, tiện ích sẽ cố gắng cập nhật thống kê ứng dụng khi phục vụ trang từ bộ nhớ đệm"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "Bộ nhớ đệm CSS: Khi bật, tiện ích sẽ lưu nội dung CSS động vào bộ nhớ đệm"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Thời gian sống của mỗi trang trong bộ nhớ đệm (giây): Sau thời gian này, trang trong bộ nhớ đệm sẽ hết hạn và được tạo lại"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Danh sách tiền tố để hướng dẫn tiện ích những trang nào nên được lưu vào bộ nhớ đệm"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Danh sách các trang/thao tác không nên bật bộ nhớ đệm"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Chọn ngữ cảnh bạn muốn xóa bộ nhớ đệm"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Trang chia sẻ"

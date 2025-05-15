@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: German <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/de_DE/>\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Front-End-Cache-Plugin"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Dieses Plugin fügt den Hauptseiten der Anwendung einen Cache hinzu."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Allgemeine Einstellungen"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Cache-Header verwenden: Wenn aktiviert, sendet das Plugin Cache-Header an den Browser"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Komprimierung verwenden: Wenn aktiviert, versucht das Plugin, den Inhalt mit gzip zu komprimieren"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Statistiken verwenden: Wenn aktiviert, versucht das Plugin, die Anwendungsstatistiken zu aktualisieren, wenn eine zwischengespeicherte Seite bereitgestellt wird"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "CSS cachen: Wenn aktiviert, speichert das Plugin dynamische CSS-Inhalte zwischen"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Lebensdauer jeder zwischengespeicherten Seite in Sekunden: Nach Ablauf dieser Zeit wird die zwischengespeicherte Seite ungültig und neu generiert"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Liste der Präfixe, die dem Plugin mitteilen, welche Seiten zwischengespeichert werden sollen"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Liste der Seiten/Operationen, für die der Cache nicht aktiviert werden soll"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Wählen Sie die Kontexte aus, für die der Cache gelöscht werden soll"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Geteilte Seiten"

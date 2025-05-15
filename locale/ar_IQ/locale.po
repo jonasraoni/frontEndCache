@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Arabic <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/ar_IQ/>\n"
+"Language: ar_IQ\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "ملحق ذاكرة التخزين المؤقت للواجهة الأمامية"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "يضيف هذا المكون الإضافي ذاكرة تخزين مؤقت للصفحات الرئيسية للتطبيق."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "الإعدادات العامة"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "استخدم رأس ذاكرة التخزين المؤقت: عند التمكين، سيرسل المكون الإضافي رؤوس ذاكرة التخزين المؤقت إلى المتصفح"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "استخدم الضغط: عند التمكين، سيحاول المكون الإضافي ضغط المحتوى باستخدام gzip"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "استخدم الإحصائيات: عند التمكين، سيحاول المكون الإضافي تغذية إحصائيات التطبيق عند تقديم صفحة مخزنة مؤقتًا"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "ذاكرة التخزين المؤقت لـ CSS: عند التمكين، سيخزن المكون الإضافي محتوى CSS الديناميكي في ذاكرة التخزين المؤقت"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "وقت بقاء كل صفحة مخزنة مؤقتًا بالثواني: بعد انتهاء الوقت، سيتم إبطال الصفحة المخزنة مؤقتًا وإعادة إنشائها"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "قائمة البادئات لإرشاد المكون الإضافي حول الصفحات التي يجب تخزينها مؤقتًا"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "قائمة الصفحات/العمليات التي لا يجب تمكين ذاكرة التخزين المؤقت لها"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "حدد السياقات التي تريد مسح ذاكرة التخزين المؤقت لها"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "الصفحات المشتركة"
