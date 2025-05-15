@@ -250,41 +250,17 @@ class FrontEndCachePlugin extends GenericPlugin
 	}
 
 	/**
-	 * Attempts to send the cached data
+	 * Validate the client cache
+	 *
+	 * @param array{time: int, headers: string[], content: string, hash: int, counted: bool, version: int} $cache
 	 */
-	private function trySendCache(Request $request): bool
+	private function validateClientCache(Request $request, array $cache, DateTimeInterface $cacheDate, bool $triggerStatistics = true): bool
 	{
-		$filename = $this->getCacheFilename($request);
-		if (!($cache = $this->getCache($filename, true))) {
+		if (!$this->useCacheHeader) {
 			return false;
 		}
 
-		if ($this->useCacheHeader && ($_SERVER['HTTP_IF_NONE_MATCH'] ?? null) === (string) $cache['hash']) {
-			$this->triggerStatistics($request, $cache);
-			header('HTTP/1.1 304 Not Modified', true, 304);
-			return true;
-		}
-
-		$this->triggerStatistics($request, $cache);
-		// Use the modified date of the cached file, as the cache might be very old (if it was regenerated a long time ago, but still valid)
-		$this->sendHeaders($cache, DateTimeImmutable::createFromFormat('U', filemtime($filename)));
-		echo $cache['content'];
-		return true;
-	}
-
-	/**
-	 * Send the headers
-	 *
-	 * @param ?array{time: int, headers: string[], content: string, hash: int, counted: bool, version: int} $cache
-	 * @param ?DateTimeInterface $revalidatedDate If not specified, the function will use the date when the cache was generated
-	 */
-	private function sendHeaders(array &$cache, ?DateTimeInterface $revalidatedDate = null): void
-	{
-		foreach ($cache['headers'] as $header) {
-			header($header);
-		}
-
-		$expiry = ($revalidatedDate ?? DateTimeImmutable::createFromFormat('U', $cache['time']))->getTimestamp() + $this->timeToLiveInSeconds;
+		$expiry = $cacheDate->getTimestamp() + $this->timeToLiveInSeconds;
 		$timeToLiveInSeconds = $expiry - time();
 		// According to the COUNTER specs, if the same URL receives N views under 30 seconds, then it be counted as a single view
 		// In case the URL leads to an entry in the statistics, we setup the max-age to 30 seconds
@@ -293,9 +269,55 @@ class FrontEndCachePlugin extends GenericPlugin
 			$timeToLiveInSeconds = min(static::COUNTER_DUPLICATED_CLICK_THRESHOLD, $timeToLiveInSeconds);
 		}
 
-		if ($this->useCacheHeader) {
-			header("cache-control: public, max-age={$timeToLiveInSeconds}, must-revalidate");
-			header("etag: {$cache['hash']}");
+		header("cache-control: public, max-age={$timeToLiveInSeconds}, must-revalidate");
+		header(header: "etag: {$cache['hash']}");
+
+		if (($_SERVER['HTTP_IF_NONE_MATCH'] ?? null) !== (string) $cache['hash']) {
+			return false;
+		}
+
+		if ($triggerStatistics) {
+			$this->triggerStatistics($request, $cache);
+		}
+
+		header('HTTP/1.1 304 Not Modified', true, 304);
+		return true;
+	}
+
+	/**
+	 * Attempts to send the cached data
+	 */
+	private function trySendCache(Request $request): bool
+	{
+		$filename = $this->getCacheFilename($request);
+		// Cache is stale, need to revalidate
+		if (!($cache = $this->getCache($filename, true))) {
+			return false;
+		}
+
+		// Server cache is valid and can be used, so we just need to trigger/emulate the statistics
+		$this->triggerStatistics($request, $cache);
+		// Here we use the modified date of the cached file as the cache might be very old (e.g. if it was regenerated a long time ago, but still has a valid content)
+		$modifiedDate = DateTimeImmutable::createFromFormat('U', filemtime($filename));
+		echo $this->sendHeaders($request, $cache, $modifiedDate) ? '' : $cache['content'];
+		return true;
+	}
+
+	/**
+	 * Send the headers, returns true if the client has a valid cache
+	 *
+	 * @param ?array{time: int, headers: string[], content: string, hash: int, counted: bool, version: int} $cache
+	 * @param ?DateTimeInterface $cacheDate If not specified, the function will use the date when the cache was generated
+	 */
+	private function sendHeaders(Request $request, array $cache, ?DateTimeInterface $cacheDate = null, bool $triggerStatistics = true): bool
+	{
+		foreach ($cache['headers'] as $header) {
+			header($header);
+		}
+
+		// Sends caching headers and checks whether the client has a valid version locally
+		if ($this->validateClientCache($request, $cache, $cacheDate ?? DateTimeImmutable::createFromFormat('U', $cache['time']), $triggerStatistics)) {
+			return true;
 		}
 
 		// If the content is gzipped
@@ -309,6 +331,7 @@ class FrontEndCachePlugin extends GenericPlugin
 		}
 
 		header('content-length: ' . strlen($cache['content']));
+		return false;
 	}
 
 	/**
@@ -379,8 +402,9 @@ class FrontEndCachePlugin extends GenericPlugin
 		}, HOOK_SEQUENCE_LAST);
 
 		ob_start(function (string $output) use (&$cache): string {
-			if (!$output) {
-				return '';
+			// Only cache 200-300 statuses
+			if (!in_array((http_response_code() % 100), [2, 3])) {
+				return $output;
 			}
 
 			$cache += [
@@ -393,47 +417,43 @@ class FrontEndCachePlugin extends GenericPlugin
 			];
 
 			try {
-				//throw new Exception('');
-				$filename = $this->getCacheFilename(Application::get()->getRequest());
+				$request = Application::get()->getRequest();
+				$filename = $this->getCacheFilename($request);
 				$cacheExists = file_exists($filename);
 				$file = new SplFileObject($filename, 'c');
-				// Acquire a shared lock for reading
-				if ($file->flock(LOCK_SH)) {
-					$existingCache = null;
-					try {
-						$existingCache = $cacheExists ? include $filename : null;
-						if (($existingCache['version'] ?? null) !== static::STRUCTURE_VERSION) {
-							$existingCache = null;
+				try {
+					// Acquire a shared lock for reading
+					if ($file->flock(LOCK_SH)) {
+						$existingCache = null;
+						try {
+							$existingCache = $cacheExists ? include $filename : null;
+							if (($existingCache['version'] ?? null) !== static::STRUCTURE_VERSION) {
+								$existingCache = null;
+							}
+						} catch (Throwable $e) {
+							error_log("Failure while including the cache file\n" . $e);
 						}
-					} catch (Throwable $e) {
-						error_log("Failure while including the cache file\n" . $e);
-					}
 
-					// If the cache is still valid, we don't need to rewrite the file, but we update its modified date as a way to specify that it was revalidated
-					if (($existingCache['hash'] ?? null) === $cache['hash']) {
-						$file->flock(LOCK_UN);
-						touch($filename);
-						$this->sendHeaders($cache);
-						return $output;
+						// If the cache is still valid, we don't need to rewrite the file, but we update its modified date as a way to specify that it was revalidated
+						if (($existingCache['hash'] ?? null) === $cache['hash']) {
+							$file->flock(LOCK_UN);
+							touch($filename);
+						} elseif ($file->flock(LOCK_EX | LOCK_NB)) { // Upgrade to an exclusive lock for rewriting the cache
+							$file->ftruncate(0);
+							$file->fwrite('<?php return ' . var_export($cache, true) . ';');
+							$file->fflush();
+							$file->flock(LOCK_UN);
+						}
 					}
-
-					// Upgrade to an exclusive lock for rewriting the cache
-					if ($file->flock(LOCK_EX | LOCK_NB)) {
-						$file->ftruncate(0);
-						$file->fwrite('<?php return ' . var_export($cache, true) . ';');
-						$file->fflush();
-						$file->flock(LOCK_UN);
-						$this->sendHeaders($cache);
-						return $output;
-					}
+				} finally {
+					$file = null;
 				}
 			} catch (Exception $e) {
 				error_log("Failure when generating the cache\n" . $e);
 			}
 
-			// If we couldn't acquire the lock or had an error, just return the output
-			$this->sendHeaders($cache);
-			return $output;
+			// It's not needed to trigger the statistics at this point
+			return $this->sendHeaders($request, $cache, null, false) ? '' : $output;
 		});
 	}
 
