@@ -403,8 +403,20 @@ class FrontEndCachePlugin extends GenericPlugin
 
 		ob_start(function (string $output) use (&$cache): string {
 			// Only cache 200-300 statuses
-			if (!in_array((http_response_code() % 100), [2, 3])) {
+			if (!in_array((int) (http_response_code() / 100), [2, 3])) {
 				return $output;
+			}
+
+			if (stripos($output, '<!doctype html') !== false) {
+				$output = preg_replace_callback(
+					'/<img\s+([^>]*)>/i',
+					function (array $matches) {
+						$attrs = $matches[1];
+						// Skip if already has loading attribute
+						return preg_match('/\bloading\s*=/i', $attrs) ? $matches[0] : "<img loading=\"lazy\" {$attrs}>";
+					},
+					$output
+				);
 			}
 
 			$cache += [
