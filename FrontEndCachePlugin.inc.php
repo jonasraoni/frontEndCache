@@ -270,7 +270,7 @@ class FrontEndCachePlugin extends GenericPlugin
 		}
 
 		header("cache-control: public, max-age={$timeToLiveInSeconds}, must-revalidate");
-		header(header: "etag: {$cache['hash']}");
+		header("etag: {$cache['hash']}");
 
 		if (($_SERVER['HTTP_IF_NONE_MATCH'] ?? null) !== (string) $cache['hash']) {
 			return false;
