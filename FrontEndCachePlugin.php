@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @file FrontEndCachePlugin.inc.php
+ * @file FrontEndCachePlugin.php
  *
  * Copyright (c) 2025 Simon Fraser University
  * Copyright (c) 2025 John Willinsky
