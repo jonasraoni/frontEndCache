@@ -12,35 +12,31 @@
 
 namespace APP\plugins\generic\frontEndCache;
 
-use AjaxModal;
+use APP\core\Application;
+use APP\core\Request;
+use APP\core\Services;
+use APP\issue\Issue;
+use APP\notification\NotificationManager;
 use APP\plugins\generic\frontEndCache\classes\SettingsForm;
-use Application;
-use AppLocale;
-use Config;
-use Core;
-use DAORegistry;
+use APP\section\Section;
+use APP\submission\Submission;
+use APP\template\TemplateManager;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Exception;
-use FileManager;
-use GenericPlugin;
-use HookRegistry;
-use Issue;
-use IssueDAO;
-use JSONMessage;
-use LinkAction;
-use NotificationManager;
-use Request;
-use Series;
-use SeriesDAO;
-use Services;
+use PKP\config\Config;
+use PKP\core\Core;
+use PKP\core\JSONMessage;
+use PKP\db\DAORegistry;
+use PKP\facades\Locale;
+use PKP\file\FileManager;
+use PKP\linkAction\LinkAction;
+use PKP\linkAction\request\AjaxModal;
+use PKP\plugins\GenericPlugin;
+use PKP\plugins\Hook;
+use PKP\security\Validation;
 use SplFileObject;
-use Submission;
-use TemplateManager;
 use Throwable;
-use Validation;
-
-import('lib.pkp.classes.plugins.GenericPlugin');
 
 class FrontEndCachePlugin extends GenericPlugin
 {
@@ -48,18 +44,18 @@ class FrontEndCachePlugin extends GenericPlugin
 	private const STRUCTURE_VERSION = 1;
 	private const COUNTER_DUPLICATED_CLICK_THRESHOLD = 10;
 	private const GZIP_HEADER = "\x1f\x8b";
-	/** @var bool Whether to send cache headers to the client */
-	private $useCacheHeader = true;
-	/** @var bool Whether to use GZIP compression */
-	private $useCompression = true;
-	/** @var bool Whether to trigger statistics when serving cached content */
-	private $useStatistics = true;
-	/** @var bool Whether to cache CSS files */
-	private $cacheCss = true;
-	/** @var int Time to live of the cache in seconds */
-	private $timeToLiveInSeconds = 3600;
+	/** Whether to send cache headers to the client */
+	private bool $useCacheHeader = true;
+	/** Whether to use GZIP compression */
+	private bool $useCompression = true;
+	/** Whether to trigger statistics when serving cached content */
+	private bool $useStatistics = true;
+	/** Whether to cache CSS files */
+	private bool $cacheCss = true;
+	/** Time to live of the cache in seconds */
+	private int $timeToLiveInSeconds = 3600;
 	/** @var string[] List of cacheable pages */
-	private $cacheablePages = [
+	private array $cacheablePages = [
 		'about', 'announcement', 'help', 'index', 'information', 'sitemap', 'catalog',
 		// OJS
 		'article', 'issue',
@@ -68,7 +64,7 @@ class FrontEndCachePlugin extends GenericPlugin
 	];
 	/**
 	 * @var string[] List of non-cacheable pages/operations */
-	private $nonCacheableOperations = [
+	private array $nonCacheableOperations = [
 		'catalog/fullSize', 'catalog/thumbnail', 'catalog/download',
 		// OJS
 		'article/download',
@@ -77,10 +73,10 @@ class FrontEndCachePlugin extends GenericPlugin
 		'preprint/download',
 		'preprints/fullSize', 'preprints/thumbnail'
 	];
-	/** @var ?string Cached filename */
-	private $cacheFilename = null;
-	/** @var bool Keeps track if statistics were generated for the current request */
-	private $wasStatisticsTriggered = false;
+	/** Cached filename */
+	private ?string $cacheFilename = null;
+	/** Keeps track if statistics were generated for the current request */
+	private bool $wasStatisticsTriggered = false;
 
 	/**
 	 * @copydoc Plugin::register
@@ -101,7 +97,6 @@ class FrontEndCachePlugin extends GenericPlugin
 		$this->timeToLiveInSeconds = (int) $this->getSetting($this->getCurrentContextId(), 'timeToLiveInSeconds');
 		$this->cacheablePages = (array) json_decode($this->getSetting($this->getCurrentContextId(), 'cacheablePages')) ?: [];
 		$this->nonCacheableOperations = (array) json_decode($this->getSetting($this->getCurrentContextId(), 'nonCacheableOperations')) ?: [];
-		$this->useAutoLoader();
 		$this->installDispatcherHook();
 		return $success;
 	}
@@ -112,7 +107,7 @@ class FrontEndCachePlugin extends GenericPlugin
 	 */
 	private function installDispatcherHook(): void
 	{
-		HookRegistry::register('Dispatcher::dispatch', function (string $hookName, Request $request){
+		Hook::add('Dispatcher::dispatch', function (string $hookName, Request $request){
 			try {
 				if (!$this->isCacheable($request)) {
 					return false;
@@ -127,28 +122,6 @@ class FrontEndCachePlugin extends GenericPlugin
 			} catch (Throwable $e) {
 				error_log("Unexpected failure at cache plugin\n" . $e);
 				return false;
-			}
-		});
-	}
-
-	/**
-	 * Registers a custom autoloader to handle the plugin namespace
-	 */
-	private function useAutoLoader(): void
-	{
-		spl_autoload_register(function ($className) {
-			// Removes the base namespace from the class name
-			$path = explode(__NAMESPACE__ . '\\', $className, 2);
-			if (!reset($path)) {
-				// Breaks the remaining class name by \ to retrieve the folder and class name
-				$path = explode('\\', end($path));
-				$class = array_pop($path);
-				$path = array_map(function ($name) {
-					return strtolower($name[0]) . substr($name, 1);
-				}, $path);
-				$path[] = $class;
-				// Uses the internal loader
-				$this->import(implode('.', $path));
 			}
 		});
 	}
@@ -210,14 +183,13 @@ class FrontEndCachePlugin extends GenericPlugin
 		}
 
 		$context = $request->getContext();
-		import('lib.pkp.classes.file.FileManager');
 		$fileManager = new FileManager();
 		$basePath = Core::getBaseDir() . '/cache/frontEndCache' . ($context ? "/{$context->getId()}" : '');
 		if (!$fileManager->fileExists($basePath)) {
 			$fileManager->mkdir($basePath);
 		}
 
-		$id = md5(($_SERVER['PATH_INFO'] ?? 'index') . http_build_query($request->getUserVars()) . AppLocale::getLocale());
+		$id = md5(($_SERVER['PATH_INFO'] ?? 'index') . http_build_query($request->getUserVars()) . Locale::getLocale());
 		return $this->cacheFilename = "{$basePath}/{$id}.php";
 	}
 
@@ -355,7 +327,7 @@ class FrontEndCachePlugin extends GenericPlugin
 		}
 
 		// OMP
-		if (($seriesId = $cache['series'] ?? null) && class_exists(Series::class)) {
+		if (($seriesId = $cache['series'] ?? null) && class_exists(Section::class)) {
 			$seriesDao = DAORegistry::getDAO('SeriesDAO'); /** @var SeriesDAO Dao */
 			$templateManager->assign('series', $seriesDao->getById($seriesId));
 		}
@@ -368,7 +340,7 @@ class FrontEndCachePlugin extends GenericPlugin
 		}
 
 		$output = $template = '';
-		HookRegistry::call('TemplateManager::display', [$templateManager, &$template, &$output]);
+		Hook::call('TemplateManager::display', [$templateManager, &$template, &$output]);
 	}
 
 	/**
@@ -378,7 +350,7 @@ class FrontEndCachePlugin extends GenericPlugin
 	{
 		$cache = [];
 		// Retrieve and store useful IDs from the template at the end of the processing
-		HookRegistry::register('UsageEventPlugin::getUsageEvent', function (string $hookName, array $args) use ($request, &$cache) {
+		Hook::add('UsageEventPlugin::getUsageEvent', function (string $hookName, array $args) use ($request, &$cache) {
 			$templateManager = TemplateManager::getManager($request);
 			$this->wasStatisticsTriggered = (bool) ($args[1] ?? false);
 			$variableClassMap = [
@@ -386,7 +358,7 @@ class FrontEndCachePlugin extends GenericPlugin
 				'issue' => Issue::class,
 				'article' => Submission::class,
 				// OMP
-				'series' => Series::class,
+				'series' => Section::class,
 				'publishedSubmission' => Submission::class,
 				// OPS
 				'preprint' => Submission::class
@@ -399,7 +371,7 @@ class FrontEndCachePlugin extends GenericPlugin
 			}
 
 			return false;
-		}, HOOK_SEQUENCE_LAST);
+		}, Hook::SEQUENCE_LAST);
 
 		ob_start(function (string $output) use (&$cache): string {
 			// Only cache 200-300 statuses
@@ -516,7 +488,7 @@ class FrontEndCachePlugin extends GenericPlugin
 	/**
 	 * @copydoc Plugin::manage()
 	 */
-	public function manage($args, $request)
+	public function manage($args, $request): JSONMessage
 	{
 		if ($request->getUserVar('verb') === 'settings') {
 			return $this->displaySettings();

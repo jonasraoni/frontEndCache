@@ -12,29 +12,24 @@
 
 namespace APP\plugins\generic\frontEndCache\classes;
 
+use APP\core\Application;
+use APP\notification\Notification;
+use APP\notification\NotificationManager;
 use APP\plugins\generic\frontEndCache\FrontEndCachePlugin;
-use Application;
-use AppLocale;
-use Context;
-use Form;
-use FormValidatorCSRF;
-use FormValidatorPost;
-use NotificationManager;
-use TemplateManager;
-
-import('lib.pkp.classes.form.Form');
+use APP\template\TemplateManager;
+use PKP\core\Core;
+use PKP\facades\Locale;
+use PKP\form\Form;
+use PKP\form\validation\FormValidatorCSRF;
+use PKP\form\validation\FormValidatorPost;
 
 class SettingsForm extends Form
 {
-	/** @var FrontEndCachePlugin */
-	public $plugin;
-
 	/**
 	 * @copydoc Form::__construct
 	 */
-	public function __construct($plugin)
+	public function __construct(public FrontEndCachePlugin $plugin)
 	{
-		AppLocale::requireComponents(LOCALE_COMPONENT_PKP_USER);
 		parent::__construct($plugin->getTemplateResource('settings.tpl'));
 		$this->plugin = $plugin;
 		$this->addCheck(new FormValidatorPost($this));
@@ -44,7 +39,7 @@ class SettingsForm extends Form
 	/**
 	 * @copydoc Form::initData
 	 */
-	public function initData()
+	public function initData(): void
 	{
 		$contextId = $this->plugin->getCurrentContextId();
 
@@ -53,10 +48,9 @@ class SettingsForm extends Form
 		$this->setData('useStatistics', (bool) $this->plugin->getSetting($contextId, 'useStatistics'));
 		$this->setData('cacheCss', (bool) $this->plugin->getSetting($contextId, 'cacheCss'));
 		$this->setData('timeToLiveInSeconds', (int) $this->plugin->getSetting($contextId, 'timeToLiveInSeconds'));
-		$this->setData('cacheablePages', [AppLocale::getLocale() => json_decode($this->plugin->getSetting($contextId, 'cacheablePages')) ?: []]);
-		$this->setData('nonCacheableOperations', [AppLocale::getLocale() => json_decode($this->plugin->getSetting($contextId, 'nonCacheableOperations')) ?: []]);
+		$this->setData('cacheablePages', [Locale::getLocale() => json_decode($this->plugin->getSetting($contextId, 'cacheablePages')) ?: []]);
+		$this->setData('nonCacheableOperations', [Locale::getLocale() => json_decode($this->plugin->getSetting($contextId, 'nonCacheableOperations')) ?: []]);
 
-		/** @var Context */
 		foreach (Application::getContextDAO()->getAll(false)->toIterator() as $context) {
 			$contexts[$context->getId()] = $context->getLocalizedName();
 		}
@@ -73,7 +67,7 @@ class SettingsForm extends Form
 	/**
 	 * @copydoc Form::readInputData
 	 */
-	public function readInputData()
+	public function readInputData(): void
 	{
 		$vars = ['timeToLiveInSeconds', 'useCacheHeader', 'useCompression', 'useStatistics', 'cacheCss', 'clearContexts'];
 		$request = Application::get()->getRequest();
@@ -86,7 +80,7 @@ class SettingsForm extends Form
 	/**
 	 * @copydoc Form::fetch
 	 */
-	public function fetch($request, $template = null, $display = false)
+	public function fetch($request, $template = null, $display = false): string
 	{
 		$templateManager = TemplateManager::getManager($request);
 		$templateManager->assign('pluginName', $this->plugin->getName());
@@ -107,19 +101,17 @@ class SettingsForm extends Form
 		$this->plugin->updateSetting($contextId, 'cacheablePages', json_encode($this->getData('cacheablePages')));
 		$this->plugin->updateSetting($contextId, 'nonCacheableOperations', json_encode($this->getData('nonCacheableOperations')));
 
-		import('classes.notification.NotificationManager');
 		$notificationMgr = new NotificationManager();
 		$notificationMgr->createTrivialNotification(
 			Application::get()->getRequest()->getUser()->getId(),
-			NOTIFICATION_TYPE_SUCCESS,
+			Notification::NOTIFICATION_TYPE_SUCCESS,
 			['contents' => __('common.changesSaved')]
 		);
 
 		$clearContexts = (array) $this->getData('clearContexts');
-		import('lib.pkp.classes.file.FileManager');
 		foreach ($clearContexts as $contextId) {
 			$contextId = (int) $contextId;
-			$basePath = \Core::getBaseDir() . '/cache/frontEndCache' . ($contextId ? "/{$contextId}" : '');
+			$basePath = Core::getBaseDir() . '/cache/frontEndCache' . ($contextId ? "/{$contextId}" : '');
 			foreach (glob("{$basePath}/*.php") as $file) {
 				@unlink ($file);
 			}
