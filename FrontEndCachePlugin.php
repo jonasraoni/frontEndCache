@@ -139,24 +139,13 @@ class FrontEndCachePlugin extends GenericPlugin
 			return false;
 		}
 
-		if ($request->isPathInfoEnabled()) {
-			if ($this->cacheCss && strpos($request->getRequestPath(), COMPONENT_ROUTER_PATHINFO_MARKER . '/page/page/css')) {
-				return true;
-			}
+        if ($this->cacheCss && strpos($request->getRequestPath(), COMPONENT_ROUTER_PATHINFO_MARKER . '/page/page/css')) {
+            return true;
+        }
 
-			if (!empty($_GET)) {
-				return false;
-			}
-		} else {
-			if ($this->cacheCss && [$request->getUserVar('component'), $request->getUserVar('op')] === ['page.page', 'css']) {
-				return true;
-			}
-
-			$params = array_merge(Application::get()->getContextList(), ['page', 'op', 'path']);
-			if (!empty($_GET) && count(array_diff(array_keys($_GET), $params)) !== 0) {
-				return false;
-			}
-		}
+        if (!empty($_GET)) {
+            return false;
+        }
 
 		$page = $request->getRequestedPage() ?: 'index';
 		if(!in_array($page, $this->cacheablePages)) {
