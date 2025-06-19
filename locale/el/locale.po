@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Greek <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/el/>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Πρόσθετο προσωρινής αποθήκευσης front-end"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Αυτό το πρόσθετο προσθέτει προσωρινή αποθήκευση στις κύριες σελίδες της εφαρμογής."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Γενικές ρυθμίσεις"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Χρήση κεφαλίδας cache: όταν είναι ενεργοποιημένη, το πρόσθετο θα στέλνει κεφαλίδες cache στο πρόγραμμα περιήγησης"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Χρήση συμπίεσης: Όταν είναι ενεργοποιημένη, το πρόσθετο θα προσπαθήσει να συμπιέσει το περιεχόμενο χρησιμοποιώντας gzip"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Χρήση στατιστικών: Όταν είναι ενεργοποιημένη, το πρόσθετο θα προσπαθήσει να ενημερώσει τα στατιστικά της εφαρμογής όταν εξυπηρετεί μια προσωρινά αποθηκευμένη σελίδα"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "Προσωρινή αποθήκευση CSS: Όταν είναι ενεργοποιημένη, το πρόσθετο θα αποθηκεύει προσωρινά δυναμικό περιεχόμενο CSS"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Διάρκεια ζωής κάθε προσωρινά αποθηκευμένης σελίδας σε δευτερόλεπτα: Μετά από αυτό το χρονικό διάστημα, η προσωρινά αποθηκευμένη σελίδα θα ακυρωθεί και θα αναγεννηθεί"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Λίστα προθεμάτων για να καθοδηγήσει το πρόσθετο ποιες σελίδες πρέπει να αποθηκεύονται προσωρινά"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Λίστα σελίδων/λειτουργιών όπου δεν πρέπει να ενεργοποιείται η προσωρινή αποθήκευση"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Επιλέξτε τα πλαίσια για τα οποία θέλετε να εκκαθαρίσετε την προσωρινή αποθήκευση"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Κοινόχρηστες σελίδες"

@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Armenian <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/hy/>\n"
+"Language: hy\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Front-End Cache Plugin"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Այս պլագինը ավելացնում է քեշ հավելվածի հիմնական էջերին:"
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Ընդհանուր կարգավորումներ"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Օգտագործել քեշի վերնագիր. երբ միացված է, պլագինը կուղարկի քեշի վերնագրեր դիտարկիչին"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Օգտագործել սեղմում. Երբ միացված է, պլագինը կփորձի սեղմել բովանդակությունը օգտագործելով gzip"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Օգտագործել վիճակագրություն. Երբ միացված է, պլագինը կփորձի թարմացնել հավելվածի վիճակագրությունը քեշավորված էջ մատուցելիս"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "Քեշավորել CSS. Երբ միացված է, պլագինը կքեշավորի դինամիկ CSS բովանդակությունը"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Յուրաքանչյուր քեշավորված էջի կյանքի տևողությունը վայրկյաններով. Այս ժամանակից հետո էջը կանվավերացվի և կվերագեներացվի"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Նախածանցների ցանկ, որը ցույց է տալիս, թե որ էջերը պետք է քեշավորվեն"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Էջերի/գործողությունների ցանկ, որտեղ քեշավորումը չպետք է միացվի"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Ընտրեք այն համատեքստերը, որոնց համար ցանկանում եք մաքրել քեշը"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Համօգտագործվող էջեր"

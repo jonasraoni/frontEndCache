@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Croatian <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/hr/>\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Dodatak za prednju predmemoriju"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Ovaj dodatak dodaje predmemoriju glavnim stranicama aplikacije."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Opće postavke"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Koristi zaglavlje predmemorije: kada je omogućeno, dodatak će slati zaglavlja predmemorije pregledniku"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Koristi kompresiju: Kada je omogućeno, dodatak će pokušati komprimirati sadržaj koristeći gzip"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Koristi statistike: Kada je omogućeno, dodatak će pokušati osvježiti statistike aplikacije prilikom posluživanja stranice iz predmemorije"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "Predmemorija CSS-a: Kada je omogućeno, dodatak će predmemorirati dinamički CSS sadržaj"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Vrijeme života svake stranice u predmemoriji u sekundama: Nakon tog vremena, stranica u predmemoriji će biti poništena i ponovno generirana"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Popis prefiksa za upućivanje dodatka koje stranice treba predmemorirati"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Popis stranica/operacija za koje se predmemorija ne smije koristiti"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Odaberite kontekste za koje želite očistiti predmemoriju"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Dijeljene stranice"

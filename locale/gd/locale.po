@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Scottish Gaelic <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/gd/>\n"
+"Language: gd\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : (n > 2 && n < 20) ? 2 : 3;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Plugan tasgaidh aghaidh"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Bidh am plugan seo a' cur tasgadh ris na prìomh dhuilleagan den aplacaid."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Roghainnean coitcheann"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Cleachd ceann-tasgaidh: nuair a tha e air, cuiridh am plugan cinn-tasgaidh chun bhrabhsair"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Cleachd teannachadh: Nuair a tha e air, feuchaidh am plugan ri susbaint a theannachadh le gzip"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Cleachd staitistig: Nuair a tha e air, feuchaidh am plugan ri staitistig na h-aplacaid a bhiathadh nuair a tha e a' frithealadh duilleag tasgaidh"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "Tasg CSS: Nuair a tha e air, tasgaidh am plugan susbaint CSS gluasadach"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Ùine beò gach duilleag tasgaidh ann an diogan: Às deidh na h-ùine seo, thèid an duilleag tasgaidh a neo-dhearbhadh agus ath-chruthachadh"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Liosta de ro-leasachain gus an plugan a stiùireadh air na duilleagan a bu chòir a bhith air an tasgadh"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Liosta de dhuilleagan/gnìomhan far nach bu chòir tasgadh a bhith air"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Tagh na co-theacsan airson an tasgadh a ghlanadh"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Duilleagan co-roinnte"

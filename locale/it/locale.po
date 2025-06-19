@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Italian <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/it/>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Plugin per la cache front-end"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Questo plugin aggiunge la cache alle pagine principali dell'applicazione."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Impostazioni generali"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Usa intestazione cache: quando abilitato, il plugin invierà intestazioni cache al browser"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Usa compressione: Quando abilitato, il plugin tenterà di comprimere il contenuto usando gzip"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Usa statistiche: Quando abilitato, il plugin tenterà di aggiornare le statistiche dell'applicazione quando serve una pagina in cache"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "Cache CSS: Quando abilitato, il plugin memorizzerà nella cache il contenuto CSS dinamico"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Durata di ogni pagina in cache in secondi: Dopo questo tempo, la pagina in cache sarà invalidata e rigenerata"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Elenco di prefissi per indicare al plugin quali pagine devono essere memorizzate nella cache"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Elenco di pagine/operazioni in cui la cache non deve essere abilitata"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Seleziona i contesti per i quali desideri cancellare la cache"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Pagine condivise"

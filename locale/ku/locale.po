@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Kurdish <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/ku/>\n"
+"Language: ku\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Pêvekê Cache ya Front-End"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Ev pêvek cache li ser rûpelên sereke yên sepanê zêde dike."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Mîhengên giştî"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Sernavê cache bikar bîne: dema çalak be, pêvek dê sernavên cache bişîne gerokê"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Pêkhateyê bikar bîne: Dema çalak be, pêvek dê hewl bide naverokê bi gzipê pêk bîne"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Statîstîkê bikar bîne: Dema çalak be, pêvek dê hewl bide dema rûpelek cache dayîn, statîstîkên sepanê nûve bike"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "Cache CSS: Dema çalak be, pêvek dê naveroka CSS ya dînamîk cache bike"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Demê jiyana her rûpela cachekirî bi saniye: Piştî vê demê, rûpela cachekirî dê bê qedandin û dîsa bê çêkirin"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Lîsteya pêşgirên ku pêvekê rê dide ka kîjan rûpelan divê cache bikin"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Lîsteya rûpel/operasyonên ku divê cache neyê çalakirin"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Kontekstên ku hûn dixwazin cache paqij bikin hilbijêrin"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Rûpelên parvekirî"

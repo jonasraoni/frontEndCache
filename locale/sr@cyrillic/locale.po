@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Serbian (Cyrillic) <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/sr@cyrillic/>\n"
+"Language: sr@cyrillic\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Прикључак за кеш предњег дела"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Овај прикључак додаје кеш главним страницама апликације."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Опште поставке"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Користи заглавље кеша: када је укључено, прикључак ће слати заглавља кеша прегледачу"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Користи компресију: Када је укључено, прикључак ће покушати да компресује садржај користећи gzip"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Користи статистике: Када је укључено, прикључак ће покушати да ажурира статистике апликације приликом сервирања странице из кеша"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "Кеш CSS: Када је укључено, прикључак ће кеширати динамички CSS садржај"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Време живота сваке странице у кешу у секундама: Након овог времена, страница у кешу ће бити поништена и поново генерисана"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Листа префикса за упућивање прикључка које странице треба кеширати"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Листа страница/операција где кеш не треба да буде укључен"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Изаберите контексте за које желите да очистите кеш"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Дељене странице"

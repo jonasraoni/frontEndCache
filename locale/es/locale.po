@@ -1,0 +1,50 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: Your Name <your@email.com>\n"
+"Language-Team: Spanish <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/es/>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Plugin de caché de front-end"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Este plugin añade caché a las páginas principales de la aplicación."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Configuración general"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Usar cabecera de caché: cuando está activado, el plugin enviará cabeceras de caché al navegador"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Usar compresión: Cuando está activado, el plugin intentará compactar el contenido usando gzip"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Usar estadísticas: Cuando está activado, el plugin intentará alimentar las estadísticas de la aplicación al servir una página en caché"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "Cachear CSS: Cuando está activado, el plugin cacheará contenido CSS dinámico"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Tiempo de vida de cada página cacheada en segundos: Después de este tiempo, la página cacheada será invalidada y regenerada"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Lista de prefijos para indicar al plugin qué páginas deben ser cacheables"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Lista de páginas/operaciones donde no se debe activar la caché"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Seleccione los contextos para los que desea borrar la caché"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Páginas compartidas"

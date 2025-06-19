@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Swedish <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/sv/>\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Front-end cache-tillägg"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Detta tillägg lägger till cache till programmets huvudsidor."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Allmänna inställningar"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Använd cache-huvud: när aktiverat kommer tillägget skicka cache-huvuden till webbläsaren"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Använd komprimering: När aktiverat kommer tillägget försöka komprimera innehållet med gzip"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Använd statistik: När aktiverat kommer tillägget försöka uppdatera programmets statistik när en cachad sida serveras"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "Cache CSS: När aktiverat kommer tillägget cacha dynamiskt CSS-innehåll"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Livslängd för varje cachad sida i sekunder: Efter denna tid kommer den cachade sidan att ogiltigförklaras och återskapas"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Lista av prefix för att instruera tillägget vilka sidor som ska cachelagras"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Lista av sidor/operationer där cache inte ska aktiveras"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Välj de sammanhang där du vill rensa cachen"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Delade sidor"

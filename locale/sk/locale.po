@@ -1,0 +1,49 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-01-24T16:10:52+00:00\n"
+"PO-Revision-Date: 2020-11-22 05:51+0000\n"
+"Last-Translator: \n"
+"Language-Team: Slovak <http://translate.pkp.sfu.ca/projects/plugins/frontEndCache/sk/>\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid "plugins.generic.frontEndCache.name"
+msgstr "Doplnok front-end cache"
+
+msgid "plugins.generic.frontEndCache.description"
+msgstr "Tento doplnok pridáva cache k hlavným stránkam aplikácie."
+
+msgid "plugins.generic.frontEndCache.general"
+msgstr "Všeobecné nastavenia"
+
+msgid "plugins.generic.frontEndCache.useCacheHeader"
+msgstr "Použiť hlavičku cache: keď je povolené, doplnok bude posielať hlavičky cache do prehliadača"
+
+msgid "plugins.generic.frontEndCache.useCompression"
+msgstr "Použiť kompresiu: Keď je povolené, doplnok sa pokúsi komprimovať obsah pomocou gzip"
+
+msgid "plugins.generic.frontEndCache.useStatistics"
+msgstr "Použiť štatistiky: Keď je povolené, doplnok sa pokúsi aktualizovať štatistiky aplikácie pri poskytovaní stránky z cache"
+
+msgid "plugins.generic.frontEndCache.cacheCss"
+msgstr "Cache CSS: Keď je povolené, doplnok bude ukladať dynamický CSS obsah do cache"
+
+msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
+msgstr "Životnosť každej stránky v cache v sekundách: Po tomto čase bude stránka v cache zneplatnená a znovu vygenerovaná"
+
+msgid "plugins.generic.frontEndCache.cacheablePages"
+msgstr "Zoznam predpon na určenie, ktoré stránky by mali byť ukladané do cache"
+
+msgid "plugins.generic.frontEndCache.nonCacheableOperations"
+msgstr "Zoznam stránok/operácií, pre ktoré by cache nemala byť povolená"
+
+msgid "plugins.generic.frontEndCache.clearCacheInstruction"
+msgstr "Vyberte kontexty, pre ktoré chcete vyčistiť cache"
+
+msgid "plugins.generic.frontEndCache.sharedContent"
+msgstr "Zdieľané stránky"
