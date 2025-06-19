@@ -14,7 +14,7 @@ namespace APP\plugins\generic\frontEndCache;
 
 use APP\core\Application;
 use APP\core\Request;
-use APP\core\Services;
+use APP\facades\Repo;
 use APP\issue\Issue;
 use APP\notification\NotificationManager;
 use APP\plugins\generic\frontEndCache\classes\SettingsForm;
@@ -27,7 +27,6 @@ use Exception;
 use PKP\config\Config;
 use PKP\core\Core;
 use PKP\core\JSONMessage;
-use PKP\db\DAORegistry;
 use PKP\facades\Locale;
 use PKP\file\FileManager;
 use PKP\linkAction\LinkAction;
@@ -322,20 +321,18 @@ class FrontEndCachePlugin extends GenericPlugin
 
 		// OJS
 		if (($issueId = $cache['issue'] ?? null) && class_exists(Issue::class)) {
-			$issueDao = DAORegistry::getDAO('IssueDAO'); /** @var IssueDAO $issueDao */
-			$templateManager->assign('issue', $issueDao->getById($issueId));
+			$templateManager->assign('issue', Repo::issue()->get($issueId));
 		}
 
 		// OMP
 		if (($seriesId = $cache['series'] ?? null) && class_exists(Section::class)) {
-			$seriesDao = DAORegistry::getDAO('SeriesDAO'); /** @var SeriesDAO Dao */
-			$templateManager->assign('series', $seriesDao->getById($seriesId));
+			$templateManager->assign('series', Repo::section()->get($seriesId));
 		}
 
 		// Submission
 		foreach (['article', 'publishedSubmission', 'preprint'] as $variable) {
 			if ($id = $cache[$variable] ?? null) {
-				$templateManager->assign($variable, Services::get('submission')->get($id));
+				$templateManager->assign($variable, Repo::submission()->get($id));
 			}
 		}
 
