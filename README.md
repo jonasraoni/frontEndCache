@@ -1,7 +1,7 @@
-[![OJS compatibility](https://img.shields.io/badge/ojs-3.4-brightgreen)](https://github.com/pkp/ojs/tree/stable-3_4_0)
-[![OMP compatibility](https://img.shields.io/badge/omp-3.4-brightgreen)](https://github.com/pkp/omp/tree/stable-3_4_0)
-[![OPS compatibility](https://img.shields.io/badge/ops-3.4-brightgreen)](https://github.com/pkp/ops/tree/stable-3_4_0)
-![GitHub release](https://img.shields.io/github/v/release/jonasraoni/frontEndCache?include_prereleases&label=latest%20release&filter=v2*)
+[![OJS compatibility](https://img.shields.io/badge/ojs-3.5-brightgreen)](https://github.com/pkp/ojs/tree/stable-3_5_0)
+[![OMP compatibility](https://img.shields.io/badge/omp-3.5-brightgreen)](https://github.com/pkp/omp/tree/stable-3_5_0)
+[![OPS compatibility](https://img.shields.io/badge/ops-3.5-brightgreen)](https://github.com/pkp/ops/tree/stable-3_5_0)
+![GitHub release](https://img.shields.io/github/v/release/jonasraoni/frontEndCache?include_prereleases&label=latest%20release&filter=v3*)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/jonasraoni/frontEndCache)
 ![License type](https://img.shields.io/github/license/jonasraoni/frontEndCache)
 ![Number of downloads](https://img.shields.io/github/downloads/jonasraoni/frontEndCache/total)
@@ -35,7 +35,7 @@ This plugin is licensed under the GNU General Public License v3. See the file LI
 
 ## System Requirements
 
-- OJS/OMP/OPS 3.4.0-X.
+- OJS/OMP/OPS 3.5.0-X.
 
 ## Contact/Support
 
