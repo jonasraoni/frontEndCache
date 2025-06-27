@@ -106,7 +106,7 @@ class FrontEndCachePlugin extends GenericPlugin
      */
     private function installDispatcherHook(): void
     {
-        Hook::add('Dispatcher::dispatch', function (string $hookName, array $args){
+        Hook::add('Dispatcher::dispatch', function (string $hookName, array $args) {
             /** @var Request $request */
             [$request] = $args;
             try {
@@ -150,7 +150,7 @@ class FrontEndCachePlugin extends GenericPlugin
         }
 
         $page = $request->getRequestedPage() ?: 'index';
-        if(!in_array($page, $this->cacheablePages)) {
+        if (!in_array($page, $this->cacheablePages)) {
             return false;
         }
 
@@ -452,7 +452,7 @@ class FrontEndCachePlugin extends GenericPlugin
         return $actions;
     }
 
-        /**
+    /**
      * Generate a JSONMessage response to display the settings
      */
     private function displaySettings(): JSONMessage
@@ -521,13 +521,14 @@ class FrontEndCachePlugin extends GenericPlugin
     /**
      * @copydoc Plugin::isSitePlugin()
      */
-    public function isSitePlugin() : bool
+    public function isSitePlugin(): bool
     {
         return true;
     }
 
     /**
      * Overrides to always return the site context
+     *
      * @copydoc Plugin::getCurrentContextId(()
      */
     public function getCurrentContextId(): int

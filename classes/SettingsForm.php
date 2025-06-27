@@ -79,6 +79,8 @@ class SettingsForm extends Form
 
     /**
      * @copydoc Form::fetch
+     *
+     * @param null|mixed $template
      */
     public function fetch($request, $template = null, $display = false): string
     {
@@ -113,7 +115,7 @@ class SettingsForm extends Form
             $contextId = (int) $contextId;
             $basePath = Core::getBaseDir() . '/cache/frontEndCache' . ($contextId ? "/{$contextId}" : '');
             foreach (glob("{$basePath}/*.php") as $file) {
-                @unlink ($file);
+                @unlink($file);
             }
         }
 
