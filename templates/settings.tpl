@@ -31,6 +31,7 @@
 			{fbvElement type="checkbox" id="useCompression" checked=$useCompression label="plugins.generic.frontEndCache.useCompression" translate="true"}
 			{fbvElement type="checkbox" id="useStatistics" checked=$useStatistics label="plugins.generic.frontEndCache.useStatistics" translate="true"}
 			{fbvElement type="checkbox" id="cacheCss" checked=$cacheCss label="plugins.generic.frontEndCache.cacheCss" translate="true"}
+			{fbvElement type="checkbox" id="useEagerLoading" checked=$useEagerLoading label="plugins.generic.frontEndCache.useEagerLoading" translate="true"}
 			<p>{fbvElement type="text" id="timeToLiveInSeconds" class="checkNumbers" value=$timeToLiveInSeconds label="plugins.generic.frontEndCache.timeToLiveInSeconds"}</p>
 			<p>{fbvElement type="keyword" id="cacheablePages" current=$cacheablePages label="plugins.generic.frontEndCache.cacheablePages"}</p>
 			<p>{fbvElement type="keyword" id="nonCacheableOperations" current=$nonCacheableOperations label="plugins.generic.frontEndCache.nonCacheableOperations"}</p>

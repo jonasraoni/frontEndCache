@@ -13,6 +13,8 @@
 namespace APP\plugins\generic\frontEndCache;
 
 use AjaxModal;
+use APIHandler;
+use APIRouter;
 use APP\plugins\generic\frontEndCache\classes\ConnectionHooker;
 use APP\plugins\generic\frontEndCache\classes\DataLoader;
 use APP\plugins\generic\frontEndCache\classes\SettingsForm;
@@ -59,6 +61,8 @@ class FrontEndCachePlugin extends GenericPlugin
 	private $useStatistics = true;
 	/** @var bool Whether to cache CSS files */
 	private $cacheCss = true;
+	/** @var bool Whether to eager load database entities */
+	private $useEagerLoading = true;
 	/** @var int Time to live of the cache in seconds */
 	private $timeToLiveInSeconds = 3600;
 	/** @var string[] List of cacheable pages */
@@ -101,6 +105,7 @@ class FrontEndCachePlugin extends GenericPlugin
 		$this->useCompression = function_exists('gzencode') && (bool) $this->getSetting($this->getCurrentContextId(), 'useCompression');
 		$this->useStatistics = (bool) $this->getSetting($this->getCurrentContextId(), 'useStatistics');
 		$this->cacheCss = (bool) $this->getSetting($this->getCurrentContextId(), 'cacheCss');
+		$this->useEagerLoading = (bool) $this->getSetting($this->getCurrentContextId(), 'useEagerLoading');
 		$this->timeToLiveInSeconds = (int) $this->getSetting($this->getCurrentContextId(), 'timeToLiveInSeconds');
 		$this->cacheablePages = (array) json_decode($this->getSetting($this->getCurrentContextId(), 'cacheablePages')) ?: [];
 		$this->nonCacheableOperations = (array) json_decode($this->getSetting($this->getCurrentContextId(), 'nonCacheableOperations')) ?: [];
@@ -126,6 +131,10 @@ class FrontEndCachePlugin extends GenericPlugin
 	 */
 	private function installDatabaseCacheHook(): void
 	{
+		if (!$this->useEagerLoading) {
+			return;
+		}
+
 		new ConnectionHooker();
 		$controlledVocabEntries = [
 			function (DataLoader $dataLoader, $controlledVocabId) {
@@ -389,7 +398,7 @@ class FrontEndCachePlugin extends GenericPlugin
 	private function isRouteCacheable(Request $request): bool
 	{
 		// API request
-		if (!$request->getRouter()->getHandler()) {
+		if ($request->getRouter() instanceof APIRouter) {
 			return false;
 		}
 
