@@ -13,6 +13,8 @@
 namespace APP\plugins\generic\frontEndCache;
 
 use AjaxModal;
+use APP\plugins\generic\frontEndCache\classes\ConnectionHooker;
+use APP\plugins\generic\frontEndCache\classes\DataLoader;
 use APP\plugins\generic\frontEndCache\classes\SettingsForm;
 use Application;
 use AppLocale;
@@ -25,6 +27,7 @@ use Exception;
 use FileManager;
 use GenericPlugin;
 use HookRegistry;
+use Illuminate\Database\Capsule\Manager;
 use Issue;
 use IssueDAO;
 use JSONMessage;
@@ -90,7 +93,7 @@ class FrontEndCachePlugin extends GenericPlugin
 	public function register($category, $path, $mainContextId = null): bool
 	{
 		$success = parent::register($category, $path, $mainContextId);
-		if (!$success || !$this->getEnabled()) {
+		if (!$success || !$this->getEnabled() || !Config::getVar('general', 'installed')) {
 			return $success;
 		}
 
@@ -103,9 +106,200 @@ class FrontEndCachePlugin extends GenericPlugin
 		$this->nonCacheableOperations = (array) json_decode($this->getSetting($this->getCurrentContextId(), 'nonCacheableOperations')) ?: [];
 		$this->useAutoLoader();
 		$this->installDispatcherHook();
-		return $success;
+		$this->installDatabaseCacheHook();
+		return true;
 	}
 
+	private function retrieve($sql, $params = [], $dbResultRange = null) {
+		if ($dbResultRange && $dbResultRange->isValid()) {
+			$sql .= ' LIMIT ' . (int) $dbResultRange->getCount();
+			$offset = (int) $dbResultRange->getOffset();
+			$offset += max(0, $dbResultRange->getPage()-1) * (int) $dbResultRange->getCount();
+			$sql .= ' OFFSET ' . $offset;
+		}
+
+		return Manager::cursor(Manager::raw($sql), $params);
+	}
+
+	/**
+	 * Setups the database cache  hook
+	 */
+	private function installDatabaseCacheHook(): void
+	{
+		new ConnectionHooker();
+		$controlledVocabEntries = [
+			function (DataLoader $dataLoader, $controlledVocabId) {
+				return $dataLoader->getDataSet('controlled_vocab_entries', $controlledVocabId);
+			},
+			function (DataLoader $dataLoader, iterable $records) {
+				return $dataLoader->addDataSet('controlled_vocab_entries', $records, 'controlled_vocab_entry_id', 'controlled_vocab_id');
+			}
+		];
+		foreach ([
+			'pkp\services\issueservice::_getmany' => [
+				function (DataLoader $dataLoader, $contextId) {
+					return $dataLoader->getDataSet('issues', $contextId);
+				},
+				function (DataLoader $dataLoader, iterable $records) {
+					return $dataLoader->addDataSet('issues', $records, 'issue_id', 'journal_id');
+				}
+			],
+			'pkp\services\pkpsubmissionservice::_getmany' => [
+				function (DataLoader $dataLoader, $contextId) {
+					return $dataLoader->getDataSet('submissions', $contextId);
+				},
+				function (DataLoader $dataLoader, iterable $records) {
+					return $dataLoader->addDataSet('submissions', $records, 'submission_id', 'context_id');
+				}
+			],
+			'pkp\services\pkppublicationservice::_getmany' => [
+				function (DataLoader $dataLoader, $submissionId) {
+					return $dataLoader->getDataSet('publications', $submissionId);
+				},
+				function (DataLoader $dataLoader, iterable $records) {
+					return $dataLoader->addDataSet('publications', $records, 'publication_id', 'submission_id');
+				}
+			],
+			'pkp\services\pkpauthorservice::_getmany' => [
+				function (DataLoader $dataLoader, $publicationId) {
+					return $dataLoader->getDataSet('authors', $publicationId);
+				},
+				function (DataLoader $dataLoader, iterable $records) {
+					return $dataLoader->addDataSet('authors', $records, 'author_id', 'publication_id');
+				}
+			],
+			'controlledvocabdao::_getbysymbolic' => [
+				function (DataLoader $dataLoader, $symbolic, $assocType, $assocId) {
+					return $dataLoader->getDataSet('controlled_vocabs', [$assocId, $symbolic]);
+				},
+				function (DataLoader $dataLoader, iterable $records) {
+					return $dataLoader->addDataSet('controlled_vocabs', $records, 'controlled_vocab_id', 'assoc_id');
+				}
+			],
+			'submissionkeywordentrydao::_getbycontrolledvocabid' => $controlledVocabEntries,
+			'submissionsubjectentrydao::_getbycontrolledvocabid' => $controlledVocabEntries,
+			'submissiondisciplineentrydao::_getbycontrolledvocabid' => $controlledVocabEntries,
+			'submissionlanguageentrydao::_getbycontrolledvocabid' => $controlledVocabEntries,
+			'submissionagencyentrydao::_getbycontrolledvocabid' => $controlledVocabEntries,
+			'categorydao::_getbypublicationid' => [
+				function (DataLoader $dataLoader, $publicationId) {
+					return $dataLoader->getDataSet('categories', $publicationId);
+				},
+				function (DataLoader $dataLoader, iterable $records, $publicationId) {
+					$records = collect($records)->map(function (object $record) use ($publicationId) {
+						$record->publication_id = $publicationId;
+						return $record;
+					});
+					return $dataLoader->addDataSet('categories', $records, 'category_id', 'publication_id');
+				}
+			],
+			'app\services\galleyservice::_getmany' => [
+				function (DataLoader $dataLoader, $publicationId) {
+					return $dataLoader->getDataSet('publication_galleys', $publicationId);
+				},
+				function (DataLoader $dataLoader, iterable $records) {
+					return $dataLoader->addDataSet('publication_galleys', $records, 'galley_id', 'publication_id');
+				}
+			],
+			// OJS > Issues
+			'issuegalleydao::_getbyissueid' => [
+				function (DataLoader $dataLoader, $issueId) {
+					return $dataLoader->getDataSet('issue_galleys', $issueId);
+				},
+				function (DataLoader $dataLoader, iterable $records) {
+					return $dataLoader->addDataSet('issue_galleys', $records, 'galley_id', 'issue_id');
+				}
+			],
+		] as $hook => [$existingDataLoader, $newDataLoader]) {
+			$dataLoaderHandler = function (string $hookName, array $args) use ($existingDataLoader, $newDataLoader): bool {
+				try {
+					if (count($args) === 4) { // retrieveRange()
+						[&$sql, &$params, &$range, &$result] = $args;
+					} elseif (count($args) === 3) { // retrieve()
+						[&$sql, &$params, &$result] = $args;
+						$range = null;
+					} else {
+						throw new Exception('Unexpected error at front end cache plugin');
+					}
+
+					$dataLoader = DataLoader::find();
+					if ($dataLoader) {
+						$iterator = $existingDataLoader($dataLoader, ...$params);
+						if ($iterator) {
+							$result = DataLoader::toGenerator($iterator, $dataLoader);
+							return true;
+						}
+					}
+
+					$dataLoader = DataLoader::create();
+					$result = DataLoader::toGenerator($newDataLoader($dataLoader, $this->retrieve($sql, $params, $range), ...$params), $dataLoader);
+					return true;
+				} catch (Throwable $e) {
+					error_log("Unexpected failure at front end cache plugin\n" . $e);
+					return false;
+				}
+			};
+			HookRegistry::register($hook, $dataLoaderHandler);
+		}
+
+		HookRegistry::register('HookedConnection::select', function (string $hookName, array $args): bool {
+			[$sql, $params, $useReadPdo, &$return] = $args;
+
+			foreach (debug_backtrace() as $frame) {
+				if ([$frame['class'] ?? null, $frame['function'] ?? null] === ['PKPPublicationDAO', '_fromRow']) {
+					$dataLoader = DataLoader::find();
+					if ($dataLoader && ($locale = $dataLoader->getDataSet('submissions.locale', $params[0] ?? 0)[0]->locale ?? null)) {
+						$return = [(object) ['locale' => $locale]];
+					}
+
+					break;
+				}
+				elseif ([$frame['class'] ?? null, $frame['function'] ?? null] === ['PKPSubmissionFileDAO', 'getById']) {
+					$dataLoader = DataLoader::find();
+					if ($dataLoader) {
+						$return = $dataLoader->getDataSet('submission_files', $params[0]);
+					} elseif ($this->isRouteCacheable(Application::get()->getRequest())) {
+						$return = DataLoader::findInDataSets('submission_files', $params[0], $dataLoader);
+					}
+
+					break;
+				}
+			}
+
+			if (is_iterable($return) && count($return) > 0) {
+				$return = DataLoader::toGenerator($return, $dataLoader);
+				return true;
+			}
+
+			return false;
+		});
+
+		$settingsHandler = function (string $hookName, array $args): bool {
+			[&$sql, &$params, &$result] = $args;
+			if (!preg_match('/FROM\s+(\w+)\s+/', $sql, $match)) {
+				throw new Exception('Match failed unexpectedly');
+			}
+
+			$table = $match[1];
+			$dataLoader = DataLoader::find();
+			if ($dataLoader) {
+				$result = $dataLoader->getDataSet($table, $params[0] ?? 0);
+			} elseif ($this->isRouteCacheable(Application::get()->getRequest())) {
+				$result = DataLoader::findInDataSets($table, $params[0] ?? 0, $dataLoader);
+			}
+
+			if (is_iterable($result)) {
+				$result = DataLoader::toGenerator($result, $dataLoader);
+				return true;
+			}
+
+			return false;
+		};
+
+		foreach(['dao::_getdataobjectsettings', 'schemadao::__fromrow', 'schemadao::_getbyid'] as $hook) {
+			HookRegistry::register($hook, $settingsHandler);
+		}
+	}
 
 	/**
 	 * Setups the main plugin hook
@@ -125,7 +319,7 @@ class FrontEndCachePlugin extends GenericPlugin
 				$this->cacheContent($request);
 				return false;
 			} catch (Throwable $e) {
-				error_log("Unexpected failure at cache plugin\n" . $e);
+				error_log("Unexpected failure at front end cache plugin\n" . $e);
 				return false;
 			}
 		});
@@ -160,7 +354,6 @@ class FrontEndCachePlugin extends GenericPlugin
 	{
 		if (
 			defined('SESSION_DISABLE_INIT')
-			|| !Config::getVar('general', 'installed')
 			|| !empty($_POST)
 			|| Validation::isLoggedIn()
 		) {
@@ -184,6 +377,20 @@ class FrontEndCachePlugin extends GenericPlugin
 			if (!empty($_GET) && count(array_diff(array_keys($_GET), $params)) !== 0) {
 				return false;
 			}
+		}
+
+		if (!$this->isRouteCacheable($request)) {
+			return false;
+		}
+
+		return true;
+	}
+
+	private function isRouteCacheable(Request $request): bool
+	{
+		// API request
+		if (!$request->getRouter()->getHandler()) {
+			return false;
 		}
 
 		$page = $request->getRequestedPage() ?: 'index';
