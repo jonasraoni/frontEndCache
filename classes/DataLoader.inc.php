@@ -135,9 +135,12 @@ class DataLoader {
 		foreach ($records as $record) {
 			$this->dataSet[$table][$record->$keyField][] = $record;
 		}
+
+		// Setup empty arrays, just to flag that it was attempted to find dependent records
+		$this->dataSet[$table] += array_fill_keys(array_diff($parentIds, array_keys($this->dataSet[$table])), []);
 	}
 
-	public function addDataSet(string $table, iterable $records, string $primaryKey, $groupBy): Collection
+	public function addDataSet(string $table, iterable $records, string $primaryKey, $groupBy, array $parentIds = []): Collection
 	{
 		if (isset($this->dataSet[$table])) {
 			throw new Exception('Data set already defined');
@@ -160,6 +163,8 @@ class DataLoader {
 			$current[] = $record;
 		}
 
+		// Setup empty arrays, just to flag that it was attempted to find dependent records
+		$this->dataSet[$table] += array_fill_keys(array_diff($parentIds, array_keys($this->dataSet[$table])), []);
 		$singularTable = preg_replace(['/ies$/', '/s$/'], ['y', ''], $table);
 		if (!str_ends_with($table, '_settings') && Manager::connection()->getSchemaBuilder()->hasTable("{$singularTable}_settings")) {
 			$this->addSettings("{$singularTable}_settings", $table === 'publication_galleys' ? 'galley_id' : "{$singularTable}_id", $ids);
@@ -188,7 +193,7 @@ class DataLoader {
 					'submission_id',
 					'submission_id'
 				);
-				$this->addDataSet('publications', $records, 'publication_id', 'submission_id');
+				$this->addDataSet('publications', $records, 'publication_id', 'submission_id', $ids);
 				break;
 
 			case 'publications':
@@ -199,27 +204,27 @@ class DataLoader {
 					->filterByPublicationIds($ids)
 					->getQuery()
 					->get();
-				$this->addDataSet('authors', $records, 'author_id', 'publication_id');
+				$this->addDataSet('authors', $records, 'author_id', 'publication_id', $ids);
 
-				// Keywords
-				foreach (['SubmissionKeywordDAO', 'SubmissionSubjectDAO', 'SubmissionDisciplineDAO','SubmissionLanguageDAO','SubmissionAgencyDAO'] as $daoName) {
-					DAORegistry::getDAO($daoName);
+				// Controlled vocabularies
+				foreach (['SubmissionKeywordDAO', 'SubmissionSubjectDAO', 'SubmissionDisciplineDAO', 'SubmissionLanguageDAO', 'SubmissionAgencyDAO'] as $dao) {
+					// Load constant
+					DAORegistry::getDAO($dao);
 				}
 
-				$keywords = [CONTROLLED_VOCAB_SUBMISSION_KEYWORD, CONTROLLED_VOCAB_SUBMISSION_SUBJECT, CONTROLLED_VOCAB_SUBMISSION_DISCIPLINE, CONTROLLED_VOCAB_SUBMISSION_LANGUAGE, CONTROLLED_VOCAB_SUBMISSION_AGENCY];
 				$records = Manager::table('controlled_vocabs')
-					->whereIn('symbolic', $keywords)
+					->whereIn('symbolic', [CONTROLLED_VOCAB_SUBMISSION_KEYWORD, CONTROLLED_VOCAB_SUBMISSION_SUBJECT, CONTROLLED_VOCAB_SUBMISSION_DISCIPLINE, CONTROLLED_VOCAB_SUBMISSION_LANGUAGE, CONTROLLED_VOCAB_SUBMISSION_AGENCY])
 					->where('assoc_type', ASSOC_TYPE_PUBLICATION)
 					->whereIn('assoc_id', $ids)
 					->get();
-				$this->addDataSet('controlled_vocabs', $records, 'controlled_vocab_id', ['assoc_id', 'symbolic']);
+				$this->addDataSet('controlled_vocabs', $records, 'controlled_vocab_id', ['assoc_id', 'symbolic'], $ids);
 
 				// Categories
 				$records = Manager::table('categories', 'c')
 					->join('publication_categories AS pc', 'pc.category_id', '=', 'c.category_id')
 					->whereIn('pc.publication_id', $ids)
 					->get();
-				$this->addDataSet('categories', $records, 'category_id', 'publication_id');
+				$this->addDataSet('categories', $records, 'category_id', 'publication_id', $ids);
 
 				// Galleys
 				/** @var GalleyService */
@@ -228,7 +233,7 @@ class DataLoader {
 					->filterByPublicationIds($ids)
 					->getQuery()
 					->get();
-				$this->addDataSet('publication_galleys', $records, 'galley_id', 'publication_id');
+				$this->addDataSet('publication_galleys', $records, 'galley_id', 'publication_id', $ids);
 				break;
 
 			case 'controlled_vocabs':
@@ -237,7 +242,7 @@ class DataLoader {
 					->whereIn('controlled_vocab_id', $ids)
 					->orderBy('seq')
 					->get();
-				$this->addDataSet('controlled_vocab_entries', $records, 'controlled_vocab_entry_id', 'controlled_vocab_id');
+				$this->addDataSet('controlled_vocab_entries', $records, 'controlled_vocab_entry_id', 'controlled_vocab_id', $ids);
 				break;
 
 			case 'publication_galleys':
@@ -254,6 +259,7 @@ class DataLoader {
 					->select(['sf.*', 'f.*', 's.locale as locale'])
 					->get();
 				$this->addDataSet('submission_files', $records, 'submission_file_id', 'submission_file_id');
+				break;
 
 			case 'issues':
 				// Issue Galleys
@@ -263,7 +269,14 @@ class DataLoader {
 					->orderBy('g.seq')
 					->select('g.*', 'f.file_name', 'f.original_file_name', 'f.file_type', 'f.file_size', 'f.content_type', 'f.date_uploaded', 'f.date_modified')
 					->get();
-				$this->addDataSet('issue_files', $records, 'file_id', 'issue_id');
+				$this->addDataSet('issue_galleys', $records, 'galley_id', 'issue_id', $ids);
+
+				// Issue Files
+				$records = Manager::table('issue_files')
+					->whereIn('issue_id', $ids)
+					->get();
+				$this->addDataSet('issue_files', $records, 'file_id', 'file_id');
+				break;
 		}
 
 		return collect($output);

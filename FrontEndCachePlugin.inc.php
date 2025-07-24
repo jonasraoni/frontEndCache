@@ -13,8 +13,6 @@
 namespace APP\plugins\generic\frontEndCache;
 
 use AjaxModal;
-use APIHandler;
-use APIRouter;
 use APP\plugins\generic\frontEndCache\classes\ConnectionHooker;
 use APP\plugins\generic\frontEndCache\classes\DataLoader;
 use APP\plugins\generic\frontEndCache\classes\SettingsForm;
@@ -35,6 +33,7 @@ use IssueDAO;
 use JSONMessage;
 use LinkAction;
 use NotificationManager;
+use PKPPageRouter;
 use Request;
 use Series;
 use SeriesDAO;
@@ -179,10 +178,11 @@ class FrontEndCachePlugin extends GenericPlugin
 			],
 			'controlledvocabdao::_getbysymbolic' => [
 				function (DataLoader $dataLoader, $symbolic, $assocType, $assocId) {
-					return $dataLoader->getDataSet('controlled_vocabs', [$assocId, $symbolic]);
+					$dataSet = $dataLoader->getDataSet('controlled_vocabs', $assocId);
+					return is_iterable($dataSet) ? ($dataSet[$symbolic] ?? []) : null;
 				},
 				function (DataLoader $dataLoader, iterable $records) {
-					return $dataLoader->addDataSet('controlled_vocabs', $records, 'controlled_vocab_id', 'assoc_id');
+					return $dataLoader->addDataSet('controlled_vocabs', $records, 'controlled_vocab_id', ['assoc_id', 'symbolic']);
 				}
 			],
 			'submissionkeywordentrydao::_getbycontrolledvocabid' => $controlledVocabEntries,
@@ -219,6 +219,14 @@ class FrontEndCachePlugin extends GenericPlugin
 					return $dataLoader->addDataSet('issue_galleys', $records, 'galley_id', 'issue_id');
 				}
 			],
+			'issuefiledao::_getbyid' => [
+				function (DataLoader $dataLoader, $fileId) {
+					return $dataLoader->getDataSet('issue_files', $fileId);
+				},
+				function (DataLoader $dataLoader, iterable $records) {
+					$dataLoader->addDataSet('issue_files', $records, 'file_id', 'file_id');
+				}
+			]
 		] as $hook => [$existingDataLoader, $newDataLoader]) {
 			$dataLoaderHandler = function (string $hookName, array $args) use ($existingDataLoader, $newDataLoader): bool {
 				try {
@@ -234,7 +242,7 @@ class FrontEndCachePlugin extends GenericPlugin
 					$dataLoader = DataLoader::find();
 					if ($dataLoader) {
 						$iterator = $existingDataLoader($dataLoader, ...$params);
-						if ($iterator) {
+						if (is_iterable($iterator)) {
 							$result = DataLoader::toGenerator($iterator, $dataLoader);
 							return true;
 						}
@@ -293,7 +301,8 @@ class FrontEndCachePlugin extends GenericPlugin
 			$dataLoader = DataLoader::find();
 			if ($dataLoader) {
 				$result = $dataLoader->getDataSet($table, $params[0] ?? 0);
-			} elseif ($this->isRouteCacheable(Application::get()->getRequest())) {
+			}
+			if (!is_iterable($result) && $this->isRouteCacheable(Application::get()->getRequest())) {
 				$result = DataLoader::findInDataSets($table, $params[0] ?? 0, $dataLoader);
 			}
 
@@ -397,8 +406,7 @@ class FrontEndCachePlugin extends GenericPlugin
 
 	private function isRouteCacheable(Request $request): bool
 	{
-		// API request
-		if ($request->getRouter() instanceof APIRouter) {
+		if (!($request->getRouter() instanceof PKPPageRouter)) {
 			return false;
 		}
 
