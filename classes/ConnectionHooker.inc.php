@@ -12,12 +12,17 @@
 
 namespace APP\plugins\generic\frontEndCache\classes;
 
+use DAORegistry;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Database\Connection;
 
 class ConnectionHooker extends Manager {
 	public function __construct()
 	{
+		// Replaces the UserGroupDAO
+		DAORegistry::getDAO('UserGroupDAO');
+		DAORegistry::registerDAO('UserGroupDAO', new UserGroupDAO());
+
 		/** @var Manager */
 		$manager = Manager::$instance;
 
