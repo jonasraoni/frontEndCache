@@ -293,8 +293,8 @@ class FrontEndCachePlugin extends GenericPlugin
 
 		$settingsHandler = function (string $hookName, array $args): bool {
 			[&$sql, &$params, &$result] = $args;
-			if (!preg_match('/FROM\s+(\w+)\s+/', $sql, $match)) {
-				throw new Exception('Match failed unexpectedly');
+			if (!preg_match('/FROM\s+(\w+)_settings\s+/i', $sql, $match)) {
+				return false;
 			}
 
 			$table = $match[1];
