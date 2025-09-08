@@ -41,4 +41,8 @@
 		<name>cacheCss</name>
 		<value>true</value>
 	</setting>
+	<setting type="bool">
+		<name>useEagerLoading</name>
+		<value>true</value>
+	</setting>
 </plugin_settings>

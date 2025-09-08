@@ -35,6 +35,9 @@ msgstr "Use statistics: When enabled the plugin will attempt to feed the applica
 msgid "plugins.generic.frontEndCache.cacheCss"
 msgstr "Cache CSS: When enabled the plugin will cache dynamic CSS content"
 
+msgid "plugins.generic.frontEndCache.useEagerLoading"
+msgstr "Eager Loading: When enabled the plugin will preload database entities, providing a huge performance bump"
+
 msgid "plugins.generic.frontEndCache.timeToLiveInSeconds"
 msgstr "Time to live of each cached page in seconds: After the time is over, the cached page will be invalidated and regenerated"
 
