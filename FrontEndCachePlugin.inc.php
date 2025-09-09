@@ -16,6 +16,7 @@ use AjaxModal;
 use APP\plugins\generic\frontEndCache\classes\ConnectionHooker;
 use APP\plugins\generic\frontEndCache\classes\DataLoader;
 use APP\plugins\generic\frontEndCache\classes\SettingsForm;
+use APP\plugins\generic\frontEndCache\classes\CacheRule;
 use Application;
 use AppLocale;
 use Config;
@@ -34,7 +35,6 @@ use JSONMessage;
 use LinkAction;
 use NotificationManager;
 use PKPPageRouter;
-use Request;
 use Series;
 use SeriesDAO;
 use Services;
@@ -83,10 +83,20 @@ class FrontEndCachePlugin extends GenericPlugin
 		'preprint/download',
 		'preprints/fullSize', 'preprints/thumbnail'
 	];
+	/** @var CacheRule[] List of cache rules for smart validation */
+	private $cacheRules = [];
 	/** @var ?string Cached filename */
 	private $cacheFilename = null;
 	/** @var bool Keeps track if statistics were generated for the current request */
 	private $wasStatisticsTriggered = false;
+	/** @var ?string Cached integrity hash */
+	private $integrityHash = -1;
+	/** @var ?bool Cached is route cacheable */
+	private $isRouteCacheable = null;
+	/** @var ?bool Cached has cache rule match */
+	private $hasMatchedRuleCache = false;
+	/** @var ?CacheRule Cached matched rule */
+	private $matchedRule = null;
 
 	/**
 	 * @copydoc Plugin::register
@@ -100,15 +110,32 @@ class FrontEndCachePlugin extends GenericPlugin
 			return $success;
 		}
 
+		$this->useAutoLoader();
 		$this->useCacheHeader = (bool) $this->getSetting($this->getCurrentContextId(), 'useCacheHeader');
 		$this->useCompression = function_exists('gzencode') && (bool) $this->getSetting($this->getCurrentContextId(), 'useCompression');
 		$this->useStatistics = (bool) $this->getSetting($this->getCurrentContextId(), 'useStatistics');
 		$this->cacheCss = (bool) $this->getSetting($this->getCurrentContextId(), 'cacheCss');
-		$this->useEagerLoading = (bool) $this->getSetting($this->getCurrentContextId(), 'useEagerLoading');
+		$useEagerLoading = $this->getSetting($this->getCurrentContextId(), 'useEagerLoading');
+		if ($useEagerLoading === null) {
+			$this->updateSetting($this->getCurrentContextId(), 'useEagerLoading', true, 'bool');
+			$useEagerLoading = true;
+		}
+		$this->useEagerLoading = (bool) $useEagerLoading;
 		$this->timeToLiveInSeconds = (int) $this->getSetting($this->getCurrentContextId(), 'timeToLiveInSeconds');
 		$this->cacheablePages = (array) json_decode($this->getSetting($this->getCurrentContextId(), 'cacheablePages')) ?: [];
 		$this->nonCacheableOperations = (array) json_decode($this->getSetting($this->getCurrentContextId(), 'nonCacheableOperations')) ?: [];
-		$this->useAutoLoader();
+
+		$cacheRules = $this->getSetting($this->getCurrentContextId(), 'cacheRules');
+		if ($cacheRules === null) {
+			(new SettingsForm($this))->resetDefaultRules();
+			$cacheRules = $this->getSetting($this->getCurrentContextId(), 'cacheRules');
+		}
+
+		$this->cacheRules = [];
+		foreach (json_decode($cacheRules, true) ?: [] as $pattern => $query) {
+			$this->cacheRules[] = CacheRule::create($pattern, $query);
+		}
+
 		$this->installDispatcherHook();
 		$this->installDatabaseCacheHook();
 		return true;
@@ -275,7 +302,7 @@ class FrontEndCachePlugin extends GenericPlugin
 					$dataLoader = DataLoader::find();
 					if ($dataLoader) {
 						$return = $dataLoader->getDataSet('submission_files', $params[0]);
-					} elseif ($this->isRouteCacheable(Application::get()->getRequest())) {
+					} elseif ($this->isRouteCacheable()) {
 						$return = DataLoader::findInDataSets('submission_files', $params[0], $dataLoader);
 					}
 
@@ -302,7 +329,7 @@ class FrontEndCachePlugin extends GenericPlugin
 			if ($dataLoader) {
 				$result = $dataLoader->getDataSet($table, $params[0] ?? 0);
 			}
-			if (!is_iterable($result) && $this->isRouteCacheable(Application::get()->getRequest())) {
+			if (!is_iterable($result) && $this->isRouteCacheable()) {
 				$result = DataLoader::findInDataSets($table, $params[0] ?? 0, $dataLoader);
 			}
 
@@ -324,17 +351,17 @@ class FrontEndCachePlugin extends GenericPlugin
 	 */
 	private function installDispatcherHook(): void
 	{
-		HookRegistry::register('Dispatcher::dispatch', function (string $hookName, Request $request){
+		HookRegistry::register('Dispatcher::dispatch', function (string $hookName){
 			try {
-				if (!$this->isCacheable($request)) {
+				if (!$this->isCacheable()) {
 					return false;
 				}
 
-				if ($this->trySendCache($request)) {
+				if ($this->trySendCache()) {
 					exit;
 				}
 
-				$this->cacheContent($request);
+				$this->cacheContent();
 				return false;
 			} catch (Throwable $e) {
 				error_log("Unexpected failure at front end cache plugin\n" . $e);
@@ -368,7 +395,7 @@ class FrontEndCachePlugin extends GenericPlugin
 	/**
 	 * Determine whether or not the request is cacheable.
 	 */
-	private function isCacheable(Request $request): bool
+	private function isCacheable(): bool
 	{
 		if (
 			defined('SESSION_DISABLE_INIT')
@@ -378,6 +405,7 @@ class FrontEndCachePlugin extends GenericPlugin
 			return false;
 		}
 
+		$request = $this->getRequest();
 		if ($request->isPathInfoEnabled()) {
 			if ($this->cacheCss && strpos($request->getRequestPath(), COMPONENT_ROUTER_PATHINFO_MARKER . '/page/page/css')) {
 				return true;
@@ -397,42 +425,54 @@ class FrontEndCachePlugin extends GenericPlugin
 			}
 		}
 
-		if (!$this->isRouteCacheable($request)) {
+		if (!$this->isRouteCacheable()) {
 			return false;
 		}
 
 		return true;
 	}
 
-	private function isRouteCacheable(Request $request): bool
+	private function isRouteCacheable(): bool
 	{
+		if ($this->isRouteCacheable !== null) {
+			return $this->isRouteCacheable;
+		}
+
+		$request = $this->getRequest();
 		if (!($request->getRouter() instanceof PKPPageRouter)) {
-			return false;
+			return $this->isRouteCacheable = false;
 		}
 
 		$page = $request->getRequestedPage() ?: 'index';
-		if(!in_array($page, $this->cacheablePages)) {
-			return false;
-		}
-
-		// Skip caching binary files/downloads
 		$operation = $request->getRequestedOp();
+		// Skip caching binary files/downloads
 		if (in_array("{$page}/{$operation}", $this->nonCacheableOperations)) {
-			return false;
+			return $this->isRouteCacheable = false;
 		}
 
-		return true;
+		// Standard cacheable pages check
+		if(in_array($page, $this->cacheablePages)) {
+			return $this->isRouteCacheable = true;
+		}
+
+		// Check if route has cache rules - if so, it's cacheable regardless of other settings
+		if (!$this->getMatchedCacheRule()) {
+			return $this->isRouteCacheable = false;
+		}
+
+		return $this->isRouteCacheable = true;
 	}
 
 	/**
 	 * @copydoc PKPRouter::getCacheFilename()
 	 */
-	private function getCacheFilename(Request $request): string
+	private function getCacheFilename(): string
 	{
 		if (isset($this->cacheFilename)) {
 			return $this->cacheFilename;
 		}
 
+		$request = $this->getRequest();
 		$context = $request->getContext();
 		import('lib.pkp.classes.file.FileManager');
 		$fileManager = new FileManager();
@@ -441,14 +481,15 @@ class FrontEndCachePlugin extends GenericPlugin
 			$fileManager->mkdir($basePath);
 		}
 
-		$id = md5(($_SERVER['PATH_INFO'] ?? 'index') . http_build_query($request->getUserVars()) . AppLocale::getLocale());
+		$themePluginPath = $request->getContext() ? $request->getContext()->getData('themePluginPath') : $request->getSite()->getData('themePluginPath');
+		$id = md5(($_SERVER['PATH_INFO'] ?? 'index') . http_build_query($request->getUserVars()) . AppLocale::getLocale() . $themePluginPath);
 		return $this->cacheFilename = "{$basePath}/{$id}.php";
 	}
 
 	/**
 	 * Retrieves the cache
 	 *
-	 * @return ?array{time: int, headers: string[], content: string, hash: int, counted: bool, version: int}
+	 * @return ?array{time: int, headers: string[], content: string, hash: int, counted: bool, version: int, integrity: ?string}
 	 */
 	public function getCache(string $filename, bool $validateExpiration = false): ?array
 	{
@@ -457,12 +498,17 @@ class FrontEndCachePlugin extends GenericPlugin
 				return null;
 			}
 
-			if ($validateExpiration && filemtime($filename) + $this->timeToLiveInSeconds <= time()) {
+			$cache = include $filename;
+			if (($cache['version'] ?? null) !== static::STRUCTURE_VERSION) {
 				return null;
 			}
 
-			$cache = include $filename;
-			if (($cache['version'] ?? null) !== static::STRUCTURE_VERSION) {
+			// Check the integrity if available
+			if ($this->getMatchedCacheRule()) {
+				return $this->getIntegrityHash() === ($cache['integrity'] ?? null) ? $cache : null;
+			}
+
+			if ($validateExpiration && filemtime($filename) + $this->timeToLiveInSeconds <= time()) {
 				return null;
 			}
 
@@ -478,7 +524,7 @@ class FrontEndCachePlugin extends GenericPlugin
 	 *
 	 * @param array{time: int, headers: string[], content: string, hash: int, counted: bool, version: int} $cache
 	 */
-	private function validateClientCache(Request $request, array $cache, DateTimeInterface $cacheDate, bool $triggerStatistics = true): bool
+	private function validateClientCache(array $cache, DateTimeInterface $cacheDate, bool $triggerStatistics = true): bool
 	{
 		if (!$this->useCacheHeader) {
 			return false;
@@ -501,7 +547,7 @@ class FrontEndCachePlugin extends GenericPlugin
 		}
 
 		if ($triggerStatistics) {
-			$this->triggerStatistics($request, $cache);
+			$this->triggerStatistics($cache);
 		}
 
 		header('HTTP/1.1 304 Not Modified', true, 304);
@@ -511,19 +557,19 @@ class FrontEndCachePlugin extends GenericPlugin
 	/**
 	 * Attempts to send the cached data
 	 */
-	private function trySendCache(Request $request): bool
+	private function trySendCache(): bool
 	{
-		$filename = $this->getCacheFilename($request);
+		$filename = $this->getCacheFilename();
 		// Cache is stale, need to revalidate
 		if (!($cache = $this->getCache($filename, true))) {
 			return false;
 		}
 
 		// Server cache is valid and can be used, so we just need to trigger/emulate the statistics
-		$this->triggerStatistics($request, $cache);
+		$this->triggerStatistics($cache);
 		// Here we use the modified date of the cached file as the cache might be very old (e.g. if it was regenerated a long time ago, but still has a valid content)
 		$modifiedDate = DateTimeImmutable::createFromFormat('U', filemtime($filename));
-		echo $this->sendHeaders($request, $cache, $modifiedDate) ? '' : $cache['content'];
+		echo $this->sendHeaders($cache, $modifiedDate) ? '' : $cache['content'];
 		return true;
 	}
 
@@ -533,14 +579,14 @@ class FrontEndCachePlugin extends GenericPlugin
 	 * @param ?array{time: int, headers: string[], content: string, hash: int, counted: bool, version: int} $cache
 	 * @param ?DateTimeInterface $cacheDate If not specified, the function will use the date when the cache was generated
 	 */
-	private function sendHeaders(Request $request, array $cache, ?DateTimeInterface $cacheDate = null, bool $triggerStatistics = true): bool
+	private function sendHeaders(array $cache, ?DateTimeInterface $cacheDate = null, bool $triggerStatistics = true): bool
 	{
 		foreach ($cache['headers'] as $header) {
 			header($header);
 		}
 
 		// Sends caching headers and checks whether the client has a valid version locally
-		if ($this->validateClientCache($request, $cache, $cacheDate ?? DateTimeImmutable::createFromFormat('U', $cache['time']), $triggerStatistics)) {
+		if ($this->validateClientCache($cache, $cacheDate ?? DateTimeImmutable::createFromFormat('U', $cache['time']), $triggerStatistics)) {
 			return true;
 		}
 
@@ -563,14 +609,14 @@ class FrontEndCachePlugin extends GenericPlugin
 	 *
 	 * @param ?array{time: int, headers: string[], content: string, hash: int, counted: bool, version: int} $cache
 	 */
-	private function triggerStatistics(Request $request, array $cache): void
+	private function triggerStatistics(array $cache): void
 	{
 		if (!$this->useStatistics || !$cache['counted']) {
 			return;
 		}
 
 		$templateManager = TemplateManager::getManager();
-		$templateManager->assign('currentContext', $request->getContext());
+		$templateManager->assign('currentContext', $this->getRequest()->getContext());
 
 		// OJS
 		if (($issueId = $cache['issue'] ?? null) && class_exists(Issue::class)) {
@@ -598,12 +644,12 @@ class FrontEndCachePlugin extends GenericPlugin
 	/**
 	 * Cache the output in a local file
 	 */
-	private function cacheContent(Request $request): void
+	private function cacheContent(): void
 	{
 		$cache = [];
 		// Retrieve and store useful IDs from the template at the end of the processing
-		HookRegistry::register('UsageEventPlugin::getUsageEvent', function (string $hookName, array $args) use ($request, &$cache) {
-			$templateManager = TemplateManager::getManager($request);
+		HookRegistry::register('UsageEventPlugin::getUsageEvent', function (string $hookName, array $args) use (&$cache) {
+			$templateManager = TemplateManager::getManager($this->getRequest());
 			$this->wasStatisticsTriggered = (bool) ($args[1] ?? false);
 			$variableClassMap = [
 				// OJS
@@ -643,18 +689,20 @@ class FrontEndCachePlugin extends GenericPlugin
 				);
 			}
 
+			$integrityHash = $this->getIntegrityHash();
+
 			$cache += [
 				'time' => time(),
 				'headers' => headers_list(),
 				'content' => $output = $this->useCompression ? gzencode($output) : $output,
 				'hash' => crc32($output),
 				'counted' => $this->wasStatisticsTriggered,
-				'version' => static::STRUCTURE_VERSION
+				'version' => static::STRUCTURE_VERSION,
+				'integrity' => $integrityHash
 			];
 
 			try {
-				$request = Application::get()->getRequest();
-				$filename = $this->getCacheFilename($request);
+				$filename = $this->getCacheFilename();
 				$cacheExists = file_exists($filename);
 				$file = new SplFileObject($filename, 'c');
 				try {
@@ -671,7 +719,7 @@ class FrontEndCachePlugin extends GenericPlugin
 						}
 
 						// If the cache is still valid, we don't need to rewrite the file, but we update its modified date as a way to specify that it was revalidated
-						if (($existingCache['hash'] ?? null) === $cache['hash']) {
+						if (($existingCache['hash'] ?? null) === $cache['hash'] && ($existingCache['integrity'] ?? null) === $cache['integrity']) {
 							$file->flock(LOCK_UN);
 							touch($filename);
 						} elseif ($file->flock(LOCK_EX | LOCK_NB)) { // Upgrade to an exclusive lock for rewriting the cache
@@ -689,7 +737,7 @@ class FrontEndCachePlugin extends GenericPlugin
 			}
 
 			// It's not needed to trigger the statistics at this point
-			return $this->sendHeaders($request, $cache, null, false) ? '' : $output;
+			return $this->sendHeaders($cache, null, false) ? '' : $output;
 		});
 	}
 
@@ -721,9 +769,20 @@ class FrontEndCachePlugin extends GenericPlugin
 	 */
 	private function displaySettings(): JSONMessage
 	{
+		import('classes.notification.NotificationManager');
 		$form = new SettingsForm($this);
-		$request = Application::get()->getRequest();
-		if ($request->getUserVar('save')) {
+		$request = $this->getRequest();
+		if ($request->getUserVar('resetRules')) {
+			$form->resetDefaultRules();
+			$notificationMgr = new NotificationManager();
+			$notificationMgr->createTrivialNotification(
+				$request->getUser()->getId(),
+				NOTIFICATION_TYPE_SUCCESS,
+				['contents' => __('plugins.generic.frontEndCache.rulesReset')]
+			);
+			return new JSONMessage(true);
+		}
+		elseif ($request->getUserVar('save')) {
 			$form->readInputData();
 			if ($form->validate()) {
 				$form->execute();
@@ -731,9 +790,11 @@ class FrontEndCachePlugin extends GenericPlugin
 				$notificationManager->createTrivialNotification($request->getUser()->getId());
 				return new JSONMessage(true);
 			}
-		} else {
+		}
+		else {
 			$form->initData();
 		}
+
 		return new JSONMessage(true, $form->fetch($request));
 	}
 
@@ -805,5 +866,47 @@ class FrontEndCachePlugin extends GenericPlugin
 	public function getInstallSitePluginSettingsFile(): string
 	{
 		return $this->getPluginPath() . '/settings.xml';
+	}
+
+	/**
+	 * Get integrity hash for a route using cache rules
+	 *
+	 * @return string|null
+	 */
+	private function getIntegrityHash(): ?string
+	{
+		if ($this->integrityHash !== -1) {
+			return $this->integrityHash;
+		}
+
+		$matchedRule = $this->getMatchedCacheRule();
+		if (!$matchedRule) {
+			return $this->integrityHash = null;
+		}
+
+		$route = $this->getRequest()->getRequestUrl();
+		$matchedRule->matches($route, $captures);
+		// Get the captured groups from the regex match
+		return $this->integrityHash = $matchedRule->getIntegrityHash($captures);
+	}
+
+	/**
+	 * Check if a route has cache rules defined
+	 */
+	private function getMatchedCacheRule(): ?CacheRule
+	{
+		if ($this->hasMatchedRuleCache) {
+			return $this->matchedRule;
+		}
+
+		$this->hasMatchedRuleCache = true;
+		$route = $this->getRequest()->getRequestUrl();
+		foreach ($this->cacheRules as $rule) {
+			if ($rule->matches($route)) {
+				return $this->matchedRule = $rule;
+			}
+		}
+
+		return null;
 	}
 }
