@@ -456,11 +456,23 @@ class FrontEndCachePlugin extends GenericPlugin
 		}
 
 		// Check if route has cache rules - if so, it's cacheable regardless of other settings
-		if (!$this->getMatchedCacheRule()) {
-			return $this->isRouteCacheable = false;
+		if ($this->getMatchedCacheRule()) {
+			return $this->isRouteCacheable = true;
 		}
 
-		return $this->isRouteCacheable = true;
+		$arguments = $request->getRequestedArgs();
+		$path = $page . ($operation !== 'index' ? "/{$operation}" : '') . ($arguments ? '/' . implode('/', $arguments ?: []) : '');
+		$context = $request->getContext();
+		$isCustomNavigation = Manager::table('navigation_menu_items')
+			->where('type', 'NMI_TYPE_CUSTOM')
+			->where('context_id', $context ? $context->getId() : 0)
+			->where('path', $path)
+			->exists();
+		if ($isCustomNavigation) {
+			return $this->isRouteCacheable = true;
+		}
+
+		return $this->isRouteCacheable = false;
 	}
 
 	/**
