@@ -155,7 +155,7 @@ class SettingsForm extends Form
 		switch (Application::getName()) {
 			case 'ojs2':
 				return [
-					'#/index/sitemap/?$#' => "SELECT MD5(GROUP_CONCAT(j.path))"
+					'#/index/sitemap/?$|/index\.php/index(?:/index)?/?$#' => "SELECT MD5(GROUP_CONCAT(j.path))"
 						. "\nFROM journals j"
 						. "\nWHERE j.enabled = 1"
 						. "\nORDER BY j.path",
@@ -202,7 +202,7 @@ class SettingsForm extends Form
 						. "\nWHERE i.journal_id = \$contextId"
 						. "\nAND j.enabled = 1"
 						. "\nAND i.published = 1",
-					'#/issue/current/?$#' => "SELECT CONCAT(i.issue_id, i.last_modified)"
+					'#/issue/current/?$|/index\.php/[\w-]+(?:/index)?/?$#' => "SELECT CONCAT(i.issue_id, i.last_modified)"
 						. "\nFROM issues i"
 						. "\nINNER JOIN journals j ON j.journal_id = i.journal_id"
 						. "\nWHERE i.current = 1"
@@ -222,7 +222,7 @@ class SettingsForm extends Form
 					];
 			case 'omp':
 				return [
-					'#/index/sitemap/?$#' => "SELECT MD5(GROUP_CONCAT(p.path))"
+					'#/index/sitemap/?$|/index\.php/index(?:/index)?/?$#' => "SELECT MD5(GROUP_CONCAT(p.path))"
 						. "\nFROM presses p"
 						. "\nWHERE p.enabled = 1"
 						. "\nORDER BY p.path",
@@ -261,7 +261,7 @@ class SettingsForm extends Form
 				];
 			case 'ops':
 				return [
-					'#/index/sitemap/?$#' => "SELECT MD5(GROUP_CONCAT(j.path))"
+					'#/index/sitemap/?$|/index\.php/index(?:/index)?/?$#' => "SELECT MD5(GROUP_CONCAT(j.path))"
 						. "\nFROM journals j"
 						. "\nWHERE j.enabled = 1"
 						. "\nORDER BY j.path",
