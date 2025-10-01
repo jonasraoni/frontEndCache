@@ -964,4 +964,5 @@ class FrontEndCachePlugin extends GenericPlugin
 
 		return true;
 	}
+
 }
