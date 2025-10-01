@@ -60,31 +60,19 @@ msgid "plugins.generic.frontEndCache.cacheRulesDescription"
 msgstr "Define smart cache rules that expire content only when related entities are modified. Each rule consists of a route pattern (regex) and a SQL query that returns an integrity hash."
 
 msgid "plugins.generic.frontEndCache.cacheRulePattern"
-msgstr "Route Pattern (Regex)"
+msgstr "Route Pattern"
 
 msgid "plugins.generic.frontEndCache.cacheRuleQuery"
 msgstr "SQL Query"
 
 msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
-msgstr "Regular expression to match routes (e.g., 'issue/(\d+)' for issue pages with ID)"
+msgstr "Regular expression to match routes (e.g., #issue/view/(\d+)#)"
 
 msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
-msgstr "SQL query should return a single value used as integrity hash. Use the variables $1, $2, to access captured groups, $contextId, $userId, $locale are also available."
-
-msgid "plugins.generic.frontEndCache.addRule"
-msgstr "Add Rule"
-
-msgid "plugins.generic.frontEndCache.removeRule"
-msgstr "Remove Rule"
+msgstr "Should return a single row and column, used as integrity hash. Variables are available: $1..$n (to access captured groups), $contextId, $userId, $locale."
 
 msgid "plugins.generic.frontEndCache.resetRules"
 msgstr "Reset Default Rules"
-
-msgid "plugins.generic.frontEndCache.defaultRules"
-msgstr "Default Rules"
-
-msgid "plugins.generic.frontEndCache.defaultRulesDescription"
-msgstr "Predefined rules for common OJS routes that automatically expire cache when related content changes."
 
 msgid "plugins.generic.frontEndCache.rulesReset"
 msgstr "Cache rules have been reset to default values."
