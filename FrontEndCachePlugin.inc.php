@@ -35,6 +35,7 @@ use JSONMessage;
 use LinkAction;
 use NotificationManager;
 use PKPPageRouter;
+use Request;
 use Series;
 use SeriesDAO;
 use Services;
@@ -524,6 +525,12 @@ class FrontEndCachePlugin extends GenericPlugin
 				return null;
 			}
 
+			// Validate that cached redirect won't cause a loop
+			if ($this->hasRedirectLoop($request, $cache)) {
+				error_log("FrontEndCache: Cache invalidated due to redirect loop");
+				return null;
+			}
+
 			return $cache;
 		} catch (Throwable $e) {
 			error_log("Failure while including the cache file\n" . $e);
@@ -926,5 +933,36 @@ class FrontEndCachePlugin extends GenericPlugin
 
 		return null;
 	}
+
+	/**
+	 * Invalidate cache for the current request
+	 */
+	private function invalidateCache(Request $request): void
+	{
+		$filename = $this->getCacheFilename($request);
+		if (file_exists($filename)) {
+			unlink($filename);
+			error_log("FrontEndCache: Invalidated cache due to redirect loop detected: {$filename}");
+		}
 	}
+
+	/**
+	 * Check if the cached content contains a redirect to the current URL (which would cause a loop)
+	 */
+	private function hasRedirectLoop(Request $request, array $cache): bool
+	{
+		foreach ($cache['headers'] ?? [] as $header) {
+			if (($i = stripos($header, 'Location:')) !== 0) {
+				continue;
+			}
+
+			$redirectUrl = strtolower(trim(substr($header, $i + 9), " \n\r\t\v\x00\\"));
+			$currentUrl = strtolower(trim($request->getCompleteUrl(), " \n\r\t\v\x00\\"));
+
+			return $currentUrl === $redirectUrl;
+		}
+
+		return true;
+	}
+
 }
