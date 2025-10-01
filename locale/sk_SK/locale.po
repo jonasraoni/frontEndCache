@@ -47,3 +47,27 @@ msgstr "Vyberte kontexty, pre ktoré chcete vyčistiť cache"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Zdieľané stránky"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Pravidlá Cache"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Definujte inteligentné pravidlá cache, ktoré vypršia obsah len keď sa súvisiace entity upravia. Každé pravidlo sa skladá z vzoru trasy (regex) a SQL dotazu, ktorý vráti hash integrity."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Vzor Trasy"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Dotaz"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Regulárny výraz pre zhodu s trasami (napr. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Mal by vrátiť jeden riadok a jeden stĺpec, používa sa ako hash integrity. Dostupné premenné: $1..$n (pre prístup k zachyteným skupinám), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Obnoviť Predvolené Pravidlá"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Pravidlá cache boli obnovené na predvolené hodnoty."

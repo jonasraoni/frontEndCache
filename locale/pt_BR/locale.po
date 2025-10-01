@@ -47,3 +47,51 @@ msgstr "Selecione os contextos para os quais deseja limpar o cache"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Páginas compartilhadas"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Regras de Cache"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Defina regras inteligentes de cache que expiram o conteúdo apenas quando entidades relacionadas são modificadas. Cada regra consiste em um padrão de rota (regex) e uma consulta SQL que retorna um hash de integridade."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Padrão de Rota"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "Consulta SQL"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Expressão regular para corresponder a rotas (ex., #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Deve retornar uma única linha e coluna, usada como hash de integridade. Variáveis disponíveis: $1..$n (para acessar grupos capturados), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Redefinir Regras Padrão"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "As regras de cache foram redefinidas para os valores padrão."
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Regras de Cache"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Defina regras inteligentes de cache que expirem o conteúdo apenas quando entidades relacionadas forem modificadas. Cada regra consiste em um padrão de rota (regex) e uma consulta SQL que retorna um hash de integridade."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Padrão de Rota"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "Consulta SQL"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Expressão regular para corresponder a rotas (ex., #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Deve retornar uma única linha e coluna, usada como hash de integridade. Variáveis disponíveis: $1..$n (para acessar grupos capturados), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Redefinir Regras Padrão"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "As regras de cache foram redefinidas para os valores padrão."

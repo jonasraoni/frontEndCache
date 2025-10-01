@@ -47,3 +47,27 @@ msgstr "Pilih konteks yang ingin Anda hapus cache-nya"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Halaman bersama"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Aturan Cache"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Definisikan aturan cache pintar yang mengakhiri konten hanya ketika entitas terkait dimodifikasi. Setiap aturan terdiri dari pola rute (regex) dan kueri SQL yang mengembalikan hash integritas."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Pola Rute"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "Kueri SQL"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Ekspresi reguler untuk mencocokkan rute (mis. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Harus mengembalikan satu baris dan satu kolom, digunakan sebagai hash integritas. Variabel yang tersedia: $1..$n (untuk mengakses grup yang ditangkap), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Reset Aturan Default"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Aturan cache telah direset ke nilai default."

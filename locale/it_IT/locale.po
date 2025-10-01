@@ -47,3 +47,27 @@ msgstr "Seleziona i contesti per i quali desideri cancellare la cache"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Pagine condivise"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Regole di Cache"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Definire regole di cache intelligenti che scadono il contenuto solo quando le entità correlate vengono modificate. Ogni regola consiste in un pattern di route (regex) e una query SQL che restituisce un hash di integrità."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Pattern di Route"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "Query SQL"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Espressione regolare per corrispondere alle route (es., #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Dovrebbe restituire una singola riga e colonna, usata come hash di integrità. Variabili disponibili: $1..$n (per accedere ai gruppi catturati), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Ripristina Regole Predefinite"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Le regole di cache sono state ripristinate ai valori predefiniti."

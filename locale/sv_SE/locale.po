@@ -47,3 +47,27 @@ msgstr "Välj de sammanhang där du vill rensa cachen"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Delade sidor"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Cache Regler"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Definiera intelligenta cache regler som upphör med innehåll endast när relaterade entiteter ändras. Varje regel består av ett ruttmönster (regex) och en SQL-fråga som returnerar en integritets hash."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Ruttmönster"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Fråga"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Reguljärt uttryck för att matcha rutter (t.ex. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Bör returnera en rad och en kolumn, används som integritets hash. Tillgängliga variabler: $1..$n (för att komma åt fångade grupper), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Återställ Standardregler"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Cache reglerna har återställts till standardvärden."

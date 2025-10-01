@@ -47,3 +47,27 @@ msgstr "Veldu samhengi sem þú vilt hreinsa skyndiminni fyrir"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Sameiginlegar síður"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Cache Reglur"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Skilgreindu gáfuð cache reglur sem útrýma efni aðeins þegar tengdar einingar eru breyttar. Hver regla samanstendur af leiðarmynstri (regex) og SQL fyrirspurn sem skilar heildarhash."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Leiðarmynstur"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Fyrirspurn"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Reglulegur segð til að passa við leiðir (t.d. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Ætti að skila einni röð og einni dálki, notað sem heildarhash. Tiltækar breytur: $1..$n (til að fá aðgang að fengnum hópum), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Endurstilla Sjálfgefnar Reglur"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Cache reglurnar hafa verið endurstilltar í sjálfgefin gildi."

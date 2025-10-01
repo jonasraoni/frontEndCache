@@ -47,3 +47,27 @@ msgstr "Keshini tozalamoqchi bo'lgan kontekstlarni tanlang"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Ulashilgan sahifalar"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Kesh Qoidalari"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Aqlli kesh qoidalarini belgilang, ular faqat bog'liq entitylar o'zgartirilganda kontentni tugatadi. Har bir qoida yo'l naqshidan (regex) va yaxlitlik hash qaytaradigan SQL so'rovidan iborat."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Yo'l Naqshi"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL So'rovi"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Yo'llarni moslashtirish uchun muntazam ifoda (masalan #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Bitta qator va ustun qaytarishi kerak, yaxlitlik hash sifatida ishlatiladi. Mavjud o'zgaruvchilar: $1..$n (tutib olingan guruhlarga kirish uchun), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Standart Qoidalarni Qayta O'rnatish"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Kesh qoidalari standart qiymatlarga qayta o'rnatildi."

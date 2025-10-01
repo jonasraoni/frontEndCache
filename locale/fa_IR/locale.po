@@ -47,3 +47,27 @@ msgstr "زمینه‌هایی را که می‌خواهید کش آنها پاک
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "صفحات مشترک"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "قوانین کش"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "قوانین هوشمند کش را تعریف کنید که محتوا را فقط زمانی منقضی می‌کند که موجودیت‌های مرتبط تغییر کنند. هر قانون شامل الگوی مسیر (regex) و پرس‌وجوی SQL است که هش یکپارچگی را برمی‌گرداند."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "الگوی مسیر"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "پرس‌وجوی SQL"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "عبارت منظم برای تطبیق مسیرها (مثال: #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "باید یک ردیف و ستون واحد برگرداند، به عنوان هش یکپارچگی استفاده می‌شود. متغیرهای موجود: $1..$n (برای دسترسی به گروه‌های ضبط شده)، $contextId، $userId، $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "بازنشانی قوانین پیش‌فرض"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "قوانین کش به مقادیر پیش‌فرض بازنشانی شدند."

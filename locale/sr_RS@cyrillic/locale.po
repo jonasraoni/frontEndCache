@@ -47,3 +47,27 @@ msgstr "Изаберите контексте за које желите да о
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Дељене странице"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Правила Кеша"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Дефинишите паметна правила кеша која истекују садржај само када се повезани ентитети мењају. Свако правило се састоји од шаблона руте (regex) и SQL упита који враћа hash интегритета."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Шаблон Руте"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Упит"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Регуларни израз за поклапање рута (нпр. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Треба да врати један ред и колону, користи се као hash интегритета. Доступне променљиве: $1..$n (за приступ ухваћеним групама), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Ресетуј Подразумевана Правила"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Правила кеша су ресетована на подразумеване вредности."

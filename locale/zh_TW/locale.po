@@ -47,3 +47,27 @@ msgstr "選擇您要清除快取的上下文"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "共享頁面"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "快取規則"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "定義智能快取規則，僅在相關實體被修改時使內容過期。每個規則由路由模式（regex）和返回完整性雜湊的SQL查詢組成。"
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "路由模式"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL查詢"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "用於匹配路由的正則表達式（例如 #issue/view/(\d+)#）"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "應返回一行一列，用作完整性雜湊。可用變數：$1..$n（訪問捕獲的組），$contextId，$userId，$locale。"
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "重置預設規則"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "快取規則已重置為預設值。"

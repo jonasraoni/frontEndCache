@@ -47,3 +47,27 @@ msgstr "Chọn ngữ cảnh bạn muốn xóa bộ nhớ đệm"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Trang chia sẻ"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Quy tắc Cache"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Định nghĩa các quy tắc cache thông minh chỉ hết hạn nội dung khi các thực thể liên quan được sửa đổi. Mỗi quy tắc bao gồm một mẫu tuyến đường (regex) và một truy vấn SQL trả về hash tính toàn vẹn."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Mẫu Tuyến đường"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "Truy vấn SQL"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Biểu thức chính quy để khớp với tuyến đường (ví dụ #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Nên trả về một hàng và một cột, được sử dụng làm hash tính toàn vẹn. Biến có sẵn: $1..$n (để truy cập các nhóm được chụp), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Đặt lại Quy tắc Mặc định"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Các quy tắc cache đã được đặt lại về giá trị mặc định."

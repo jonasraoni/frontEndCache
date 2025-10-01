@@ -47,3 +47,51 @@ msgstr "Выберите контексты, для которых нужно о
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Общие страницы"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Правила Кэша"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Определите умные правила кэша, которые истекают содержимое только при изменении связанных сущностей. Каждое правило состоит из шаблона маршрута (regex) и SQL-запроса, который возвращает хэш целостности."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Шаблон Маршрута"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Запрос"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Регулярное выражение для сопоставления маршрутов (например, #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Должен возвращать одну строку и один столбец, используется как хэш целостности. Доступные переменные: $1..$n (для доступа к захваченным группам), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Сбросить Правила по Умолчанию"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Правила кэша были сброшены к значениям по умолчанию."
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Правила Кеширования"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Определите интеллектуальные правила кеширования, которые истекают контент только при изменении связанных сущностей. Каждое правило состоит из шаблона маршрута (regex) и SQL-запроса, который возвращает хеш целостности."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Шаблон Маршрута"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL-Запрос"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Регулярное выражение для сопоставления маршрутов (например, #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Должен возвращать одну строку и один столбец, используемые как хеш целостности. Доступные переменные: $1..$n (для доступа к захваченным группам), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Сбросить Правила по Умолчанию"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Правила кеширования были сброшены к значениям по умолчанию."

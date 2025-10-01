@@ -47,3 +47,27 @@ msgstr "Hautatu cache-a garbitu nahi duzun testuingurua"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Partekatutako orriak"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Cache Arauak"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Definitu cache arau adimentsuak edukiak soilik erlazionatutako entitateak aldatzen direnean iraungitzen dutenak. Arau bakoitzak ibilbide patroi bat (regex) eta integritate hash bat itzultzen duen SQL kontsulta bat ditu."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Ibilbide Patroia"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Kontsulta"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Ibilbideekin bat etortzeko adierazpen erregularra (adib. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Lerro eta zutabe bakarra itzuli behar du, integritate hash gisa erabiltzen da. Aldagai erabilgarriak: $1..$n (harrapatutako taldeetara sartzeko), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Berrezarri Lehenetsitako Arauak"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Cache arauak lehenetsitako balioetara berrezarri dira."

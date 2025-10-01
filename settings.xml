@@ -45,4 +45,11 @@
 		<name>useEagerLoading</name>
 		<value>true</value>
 	</setting>
+	<!--
+	Created at runtime by SettingsForm::initData()
+	<setting type="string">
+		<name>cacheRules</name>
+		<value></value>
+	</setting>
+	-->
 </plugin_settings>

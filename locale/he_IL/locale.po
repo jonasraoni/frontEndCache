@@ -47,3 +47,27 @@ msgstr "בחר את ההקשרים עבורם תרצה לנקות את המטמ�
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "דפים משותפים"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "כללי Cache"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "הגדר כללי cache חכמים שמוציאים תוכן רק כאשר ישויות קשורות משתנות. כל כלל מורכב מתבנית נתיב (regex) ושאילתת SQL שמחזירה hash שלמות."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "תבנית נתיב"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "שאילתת SQL"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "ביטוי רגולרי להתאמת נתיבים (לדוגמה, #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "צריך להחזיר שורה אחת ועמודה אחת, משמש כ-hash שלמות. משתנים זמינים: $1..$n (לגישה לקבוצות נתפסות), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "איפוס כללים ברירת מחדל"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "כללי ה-cache אופסו לערכי ברירת המחדל."

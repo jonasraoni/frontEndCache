@@ -52,3 +52,27 @@ msgstr "Select the contexts for which you would like the cache to be cleared"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Shared pages"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Cache Rules"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Define smart cache rules that expire content only when related entities are modified. Each rule consists of a route pattern (regex) and a SQL query that returns an integrity hash."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Route Pattern"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Query"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Regular expression to match routes (e.g., #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Should return a single row and column, used as integrity hash. Variables are available: $1..$n (to access captured groups), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Reset Default Rules"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Cache rules have been reset to default values."

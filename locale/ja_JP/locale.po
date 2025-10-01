@@ -47,3 +47,27 @@ msgstr "キャッシュをクリアしたいコンテキストを選択してく
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "共有ページ"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "キャッシュルール"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "関連するエンティティが変更された場合のみコンテンツを期限切れにするスマートキャッシュルールを定義します。各ルールは、ルートパターン（正規表現）と整合性ハッシュを返すSQLクエリで構成されます。"
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "ルートパターン"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQLクエリ"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "ルートにマッチする正規表現（例：#issue/view/(\d+)#）"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "整合性ハッシュとして使用される単一行・単一列を返す必要があります。利用可能な変数：$1..$n（キャプチャグループにアクセス）、$contextId、$userId、$locale。"
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "デフォルトルールをリセット"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "キャッシュルールがデフォルト値にリセットされました。"

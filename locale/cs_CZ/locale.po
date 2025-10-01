@@ -47,3 +47,27 @@ msgstr "Vyberte kontexty, pro které chcete vymazat cache"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Sdílené stránky"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Pravidla Cache"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Definujte inteligentní pravidla cache, která vyprší obsah pouze při změně souvisejících entit. Každé pravidlo se skládá z vzoru trasy (regex) a SQL dotazu, který vrací hash integrity."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Vzor Trasy"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Dotaz"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Regulární výraz pro shodu s trasami (např. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Měl by vrátit jeden řádek a jeden sloupec, používá se jako hash integrity. Dostupné proměnné: $1..$n (pro přístup k zachyceným skupinám), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Obnovit Výchozí Pravidla"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Pravidla cache byla obnovena na výchozí hodnoty."

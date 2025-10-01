@@ -47,3 +47,27 @@ msgstr "Seleccioneu els contextos per als quals voleu esborrar la memòria cau"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Pàgines compartides"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Regles de Caché"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Definiu regles intel·ligents de caché que expiren el contingut només quan les entitats relacionades es modifiquen. Cada regla consisteix en un patró de ruta (regex) i una consulta SQL que retorna un hash d'integritat."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Patró de Ruta"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "Consulta SQL"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Expressió regular per coincidir amb rutes (ex., #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Hauria de retornar una sola fila i columna, usada com a hash d'integritat. Variables disponibles: $1..$n (per accedir a grups capturats), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Restablir Regles Predeterminades"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Les regles de caché han estat restablertes als valors predeterminats."

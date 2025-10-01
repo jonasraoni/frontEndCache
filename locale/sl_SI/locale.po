@@ -47,3 +47,27 @@ msgstr "Izberite kontekste, za katere želite počistiti predpomnilnik"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Skupne strani"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Pravila Cache"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Definirajte pametna pravila cache, ki potečejo vsebino le, ko se povezane entitete spremenijo. Vsako pravilo je sestavljeno iz vzorca poti (regex) in SQL poizvedbe, ki vrne hash integritete."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Vzorec Poti"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Poizvedba"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Regularni izraz za ujemanje poti (npr. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Moral bi vrniti eno vrstico in en stolpec, uporablja se kot hash integritete. Razpoložljive spremenljivke: $1..$n (za dostop do zajetih skupin), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Ponastavi Privzeta Pravila"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Pravila cache so bila ponastavljena na privzete vrednosti."

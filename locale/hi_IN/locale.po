@@ -47,3 +47,27 @@ msgstr "उन संदर्भों का चयन करें जिन�
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "साझा पृष्ठ"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "कैश नियम"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "स्मार्ट कैश नियम परिभाषित करें जो सामग्री को केवल तभी समाप्त करते हैं जब संबंधित इकाइयां संशोधित होती हैं। प्रत्येक नियम में एक रूट पैटर्न (regex) और एक SQL क्वेरी होती है जो अखंडता हैश लौटाती है।"
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "रूट पैटर्न"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL क्वेरी"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "रूट्स से मैच करने के लिए नियमित अभिव्यक्ति (उदा। #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "एक पंक्ति और एक कॉलम लौटाना चाहिए, अखंडता हैश के रूप में उपयोग किया जाता है। उपलब्ध चर: $1..$n (कैप्चर किए गए समूहों तक पहुंचने के लिए), $contextId, $userId, $locale।"
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "डिफ़ॉल्ट नियम रीसेट करें"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "कैश नियमों को डिफ़ॉल्ट मानों पर रीसेट कर दिया गया है।"
