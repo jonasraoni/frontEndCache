@@ -47,3 +47,27 @@ msgstr "Velg kontekstene du vil tømme hurtigbuffer for"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Delte sider"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Cache Regler"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Definer intelligente cache regler som utløper innhold kun når relaterte enheter endres. Hver regel består av et rute mønster (regex) og en SQL spørring som returnerer en integritets hash."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Rute Mønster"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Spørring"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Regulært uttrykk for å matche ruter (f.eks. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Skal returnere en enkelt rad og kolonne, brukes som integritets hash. Tilgjengelige variabler: $1..$n (for å få tilgang til fangede grupper), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Tilbakestill Standard Regler"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Cache reglene har blitt tilbakestilt til standardverdier."

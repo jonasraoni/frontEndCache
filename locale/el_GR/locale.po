@@ -47,3 +47,27 @@ msgstr "Επιλέξτε τα πλαίσια για τα οποία θέλετε
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Κοινόχρηστες σελίδες"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Κανόνες Cache"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Ορίστε έξυπνους κανόνες cache που λήγουν το περιεχόμενο μόνο όταν τροποποιούνται σχετικές οντότητες. Κάθε κανόνας αποτελείται από ένα μοτίβο διαδρομής (regex) και ένα SQL ερώτημα που επιστρέφει ένα hash ακεραιότητας."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Μοτίβο Διαδρομής"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Ερώτημα"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Κανονική έκφραση για αντιστοίχιση διαδρομών (π.χ. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Πρέπει να επιστρέψει μια μόνο γραμμή και στήλη, χρησιμοποιείται ως hash ακεραιότητας. Διαθέσιμες μεταβλητές: $1..$n (για πρόσβαση σε συλλεγμένες ομάδες), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Επαναφορά Προεπιλεγμένων Κανόνων"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Οι κανόνες cache έχουν επαναφερθεί στις προεπιλεγμένες τιμές."

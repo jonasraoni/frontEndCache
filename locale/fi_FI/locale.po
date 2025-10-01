@@ -47,3 +47,27 @@ msgstr "Valitse kontekstit, joiden välimuistin haluat tyhjentävän"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Jaetut sivut"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Välimuistin Säännöt"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Määritä älykkäät välimuistin säännöt, jotka vanhentavat sisällön vain kun liittyvät entiteetit muuttuvat. Jokainen sääntö koostuu reittimallista (regex) ja SQL-kyselystä, joka palauttaa eheys-hashin."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Reittimalli"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL-kysely"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Säännöllinen lauseke reittien vastaamiseen (esim. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Pitäisi palauttaa yksi rivi ja sarake, käytetään eheys-hashina. Saatavilla olevat muuttujat: $1..$n (pääsy siepatuille ryhmille), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Nollaa Oletussäännöt"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Välimuistin säännöt on nollattu oletusarvoihin."

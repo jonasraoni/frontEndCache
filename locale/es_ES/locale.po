@@ -48,3 +48,27 @@ msgstr "Seleccione los contextos para los que desea borrar la caché"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Páginas compartidas"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Reglas de Caché"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Defina reglas inteligentes de caché que expiren el contenido solo cuando se modifiquen las entidades relacionadas. Cada regla consiste en un patrón de ruta (regex) y una consulta SQL que devuelve un hash de integridad."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Patrón de Ruta"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "Consulta SQL"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Expresión regular para coincidir con rutas (ej., #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Debe devolver una sola fila y columna, usada como hash de integridad. Variables disponibles: $1..$n (para acceder a grupos capturados), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Restablecer Reglas Predeterminadas"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Las reglas de caché han sido restablecidas a los valores predeterminados."

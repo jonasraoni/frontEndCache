@@ -47,3 +47,27 @@ msgstr "Tagh na co-theacsan airson an tasgadh a ghlanadh"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Duilleagan co-roinnte"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Riaghailtean Cache"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Mìnich riaghailtean cache glic a dh'fheumas an susbaint dìreach nuair a thèid eintiteasan co-cheangailte atharrachadh. Tha gach riaghailt air a dhèanamh suas de phàtran slighe (regex) agus ceist SQL a thilleas hash ionracais."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Pàtran Slighe"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "Ceist SQL"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Abairt riaghailteach airson slighean a mhaidseadh (m.e. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Bu chòir aon sreath agus colbh a thilleadh, air a chleachdadh mar hash ionracais. Caochladairean rim faighinn: $1..$n (airson faighinn a-steach do bhuidhnean glac), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Ath-shuidhich Riaghailtean Bunaiteach"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Chaidh riaghailtean cache ath-shuidheachadh gu luachan bunaiteach."

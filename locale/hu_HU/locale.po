@@ -47,3 +47,27 @@ msgstr "Válassza ki azokat a környezeteket, amelyeknél törölni szeretné a 
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Megosztott oldalak"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Cache Szabályok"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Definiáljon okos cache szabályokat, amelyek csak akkor érvénytelenítik a tartalmat, amikor a kapcsolódó entitások módosulnak. Minden szabály egy útvonal mintából (regex) és egy SQL lekérdezésből áll, amely integritási hash-t ad vissza."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Útvonal Minta"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Lekérdezés"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Reguláris kifejezés útvonalak egyeztetéséhez (pl. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Egyetlen sort és oszlopot kell visszaadnia, integritási hash-ként használva. Elérhető változók: $1..$n (a rögzített csoportok eléréséhez), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Alapértelmezett Szabályok Visszaállítása"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "A cache szabályok visszaálltak az alapértelmezett értékekre."

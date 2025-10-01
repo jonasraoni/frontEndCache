@@ -47,3 +47,27 @@ msgstr "Önbelleğini temizlemek istediğiniz bağlamları seçin"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Paylaşılan sayfalar"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Cache Kuralları"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "İçeriği yalnızca ilgili varlıklar değiştirildiğinde sona erdiren akıllı cache kuralları tanımlayın. Her kural, bir rota deseni (regex) ve bütünlük hash'i döndüren bir SQL sorgusu içerir."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Rota Deseni"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Sorgusu"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Rotaları eşleştirmek için düzenli ifade (örn. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Tek satır ve sütun döndürmeli, bütünlük hash'i olarak kullanılır. Mevcut değişkenler: $1..$n (yakalanan gruplara erişim için), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Varsayılan Kuralları Sıfırla"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Cache kuralları varsayılan değerlere sıfırlandı."

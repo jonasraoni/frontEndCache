@@ -47,3 +47,27 @@ msgstr "Odaberite kontekste za koje želite očistiti keš"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Dijeljene stranice"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Pravila Cache-a"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Definirajte pametna pravila cache-a koja ističu sadržaj samo kada se povezani entiteti mijenjaju. Svako pravilo se sastoji od uzorka rute (regex) i SQL upita koji vraća hash integriteta."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Uzorak Rute"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Upit"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Regularni izraz za podudaranje ruta (npr. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Treba vratiti jedan red i kolonu, koristi se kao hash integriteta. Dostupne varijable: $1..$n (za pristup uhvaćenim grupama), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Resetuj Zadana Pravila"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Pravila cache-a su resetovana na zadane vrijednosti."

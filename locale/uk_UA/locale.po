@@ -47,3 +47,27 @@ msgstr "Виберіть контексти, для яких потрібно о
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Спільні сторінки"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Правила Кешу"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Визначте розумні правила кешу, які закінчують вміст лише коли пов'язані сутності змінюються. Кожне правило складається з шаблону маршруту (regex) та SQL-запиту, який повертає хеш цілісності."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Шаблон Маршруту"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Запит"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Регулярний вираз для співставлення маршрутів (наприклад, #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Повинен повертати один рядок і один стовпець, використовується як хеш цілісності. Доступні змінні: $1..$n (для доступу до захоплених груп), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Скинути Правила за Замовчуванням"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Правила кешу були скинуті до значень за замовчуванням."

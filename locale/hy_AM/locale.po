@@ -47,3 +47,27 @@ msgstr "Ընտրեք այն համատեքստերը, որոնց համար ցա
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Համօգտագործվող էջեր"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Cache Կանոններ"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Սահմանեք խելացի cache կանոններ, որոնք ավարտում են բովանդակությունը միայն այն ժամանակ, երբ կապակցված էությունները փոխվում են: Յուրաքանչյուր կանոն բաղկացած է ուղու նմուշից (regex) և SQL հարցումից, որը վերադարձնում է ամբողջականության hash:"
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Ուղու Նմուշ"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Հարցում"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Կանոնավոր արտահայտություն ուղիների համապատասխանության համար (օր. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Պետք է վերադարձնի մեկ տող և մեկ սյունակ, օգտագործվում է որպես ամբողջականության hash: Հասանելի փոփոխականներ: $1..$n (բռնված խմբերին մուտք գործելու համար), $contextId, $userId, $locale:"
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Վերակայել Լռելյայն Կանոնները"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Cache կանոնները վերակայվել են լռելյայն արժեքներին:"

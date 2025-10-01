@@ -47,3 +47,27 @@ msgstr "Wybierz konteksty, dla których chcesz wyczyścić cache"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Współdzielone strony"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Zasady Cache"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Zdefiniuj inteligentne zasady cache, które wygasają zawartość tylko wtedy, gdy powiązane encje są modyfikowane. Każda zasada składa się z wzorca trasy (regex) i zapytania SQL, które zwraca hash integralności."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Wzorzec Trasy"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "Zapytanie SQL"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Wyrażenie regularne do dopasowania tras (np. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Powinno zwrócić jeden wiersz i jedną kolumnę, używane jako hash integralności. Dostępne zmienne: $1..$n (dla dostępu do przechwyconych grup), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Resetuj Domyślne Zasady"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Zasady cache zostały zresetowane do wartości domyślnych."

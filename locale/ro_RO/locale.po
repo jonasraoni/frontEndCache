@@ -47,3 +47,27 @@ msgstr "Selectați contextele pentru care doriți să ștergeți cache-ul"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Pagini partajate"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Reguli Cache"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Definiți reguli inteligente de cache care expiră conținutul doar când entitățile conexe sunt modificate. Fiecare regulă constă dintr-un model de rută (regex) și o interogare SQL care returnează un hash de integritate."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Model de Rută"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "Interogare SQL"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Expresie regulată pentru potrivirea rutelor (ex., #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Ar trebui să returneze o singură linie și o singură coloană, folosită ca hash de integritate. Variabile disponibile: $1..$n (pentru accesarea grupurilor capturate), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Resetează Regulile Implicite"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Regulile de cache au fost resetate la valorile implicite."

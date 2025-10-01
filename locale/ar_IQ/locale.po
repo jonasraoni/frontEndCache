@@ -47,3 +47,27 @@ msgstr "حدد السياقات التي تريد مسح ذاكرة التخزي
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "الصفحات المشتركة"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "قواعد التخزين المؤقت"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "تحديد قواعد التخزين المؤقت الذكية التي تنتهي صلاحية المحتوى فقط عند تعديل الكيانات ذات الصلة. تتكون كل قاعدة من نمط المسار (regex) واستعلام SQL يُرجع hash التكامل."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "نمط المسار"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "استعلام SQL"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "تعبير منتظم لمطابقة المسارات (مثال: #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "يجب أن يُرجع صف واحد وعمود واحد، يُستخدم كـ hash التكامل. المتغيرات المتاحة: $1..$n (للوصول للمجموعات المحجوزة)، $contextId، $userId، $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "إعادة تعيين القواعد الافتراضية"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "تم إعادة تعيين قواعد التخزين المؤقت إلى القيم الافتراضية."

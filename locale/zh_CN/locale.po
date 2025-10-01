@@ -47,3 +47,51 @@ msgstr "选择要清除缓存的上下文"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "共享页面"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "缓存规则"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "定义智能缓存规则，仅在相关实体被修改时使内容过期。每个规则由路由模式（regex）和返回完整性哈希的SQL查询组成。"
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "路由模式"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL查询"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "用于匹配路由的正则表达式（例如 #issue/view/(\d+)#）"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "应返回一行一列，用作完整性哈希。可用变量：$1..$n（访问捕获的组），$contextId，$userId，$locale。"
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "重置默认规则"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "缓存规则已重置为默认值。"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "缓存规则"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "定义智能缓存规则，仅在相关实体被修改时使内容过期。每个规则包含一个路由模式（正则表达式）和一个返回完整性哈希的SQL查询。"
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "路由模式"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL查询"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "用于匹配路由的正则表达式（例如，#issue/view/(\d+)#）"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "应返回单行单列，用作完整性哈希。可用变量：$1..$n（访问捕获组）、$contextId、$userId、$locale。"
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "重置默认规则"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "缓存规则已重置为默认值。"

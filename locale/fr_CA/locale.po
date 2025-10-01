@@ -47,3 +47,27 @@ msgstr "Sélectionnez les contextes pour lesquels vous souhaitez effacer le cach
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Pages partagées"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Règles de Cache"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Définissez des règles de cache intelligentes qui expirent le contenu uniquement lorsque les entités liées sont modifiées. Chaque règle consiste en un modèle de route (regex) et une requête SQL qui retourne un hash d'intégrité."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Modèle de Route"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "Requête SQL"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Expression régulière pour correspondre aux routes (ex., #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Doit retourner une seule ligne et colonne, utilisée comme hash d'intégrité. Variables disponibles : $1..$n (pour accéder aux groupes capturés), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Réinitialiser les Règles par Défaut"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Les règles de cache ont été réinitialisées aux valeurs par défaut."

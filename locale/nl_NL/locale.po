@@ -47,3 +47,27 @@ msgstr "Selecteer de contexten waarvoor u de cache wilt wissen"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Gedeelde pagina's"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Cache Regels"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Definieer slimme cache regels die inhoud alleen laten verlopen wanneer gerelateerde entiteiten worden gewijzigd. Elke regel bestaat uit een route patroon (regex) en een SQL query die een integriteits hash retourneert."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Route Patroon"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Query"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Reguliere expressie voor het matchen van routes (bijv. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Moet een enkele rij en kolom retourneren, gebruikt als integriteits hash. Beschikbare variabelen: $1..$n (voor toegang tot gevangen groepen), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Reset Standaard Regels"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Cache regels zijn gereset naar standaardwaarden."

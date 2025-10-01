@@ -47,3 +47,27 @@ msgstr "Wählen Sie die Kontexte aus, für die der Cache gelöscht werden soll"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Geteilte Seiten"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Cache-Regeln"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Definieren Sie intelligente Cache-Regeln, die Inhalte nur dann ablaufen lassen, wenn verknüpfte Entitäten geändert werden. Jede Regel besteht aus einem Routenmuster (Regex) und einer SQL-Abfrage, die einen Integritäts-Hash zurückgibt."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Routenmuster"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL-Abfrage"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Regulärer Ausdruck zum Abgleichen von Routen (z.B. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Sollte eine einzelne Zeile und Spalte zurückgeben, die als Integritäts-Hash verwendet wird. Verfügbare Variablen: $1..$n (um auf erfasste Gruppen zuzugreifen), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Standard-Regeln zurücksetzen"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Die Cache-Regeln wurden auf die Standardwerte zurückgesetzt."

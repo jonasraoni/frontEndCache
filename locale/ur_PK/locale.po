@@ -47,3 +47,27 @@ msgstr "ان سیاق و سباق کو منتخب کریں جن کے لیے آپ
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "مشترکہ صفحات"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "کیش قوانین"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "ذہین کیش قوانین کی وضاحت کریں جو مواد کو صرف اس وقت ختم کرتے ہیں جب متعلقہ entities تبدیل ہوتی ہیں۔ ہر قانون میں ایک route pattern (regex) اور SQL query شامل ہے جو integrity hash واپس کرتا ہے۔"
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "راستہ پیٹرن"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL استفسار"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "راستوں سے میل کھانے کے لیے regular expression (مثال: #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "ایک row اور column واپس کرنا چاہیے، integrity hash کے طور پر استعمال ہوتا ہے۔ دستیاب متغیرات: $1..$n (captured groups تک رسائی کے لیے)، $contextId، $userId، $locale۔"
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "ڈیفالٹ قوانین کو ری سیٹ کریں"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "کیش قوانین کو ڈیفالٹ اقدار پر ری سیٹ کر دیا گیا ہے۔"

@@ -47,3 +47,27 @@ msgstr "Vælg de kontekster, du vil rydde cachen for"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Delte sider"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Cache Regler"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Definer intelligente cache regler, der kun udløber indhold når relaterede enheder ændres. Hver regel består af et rute mønster (regex) og en SQL forespørgsel, der returnerer en integritets hash."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Rute Mønster"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "SQL Forespørgsel"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Regulært udtryk til at matche ruter (f.eks. #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Skal returnere en enkelt række og kolonne, bruges som integritets hash. Tilgængelige variabler: $1..$n (for at få adgang til fangede grupper), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Nulstil Standard Regler"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Cache reglerne er blevet nulstillet til standardværdier."

@@ -47,3 +47,27 @@ msgstr "Kontekstên ku hûn dixwazin cache paqij bikin hilbijêrin"
 
 msgid "plugins.generic.frontEndCache.sharedContent"
 msgstr "Rûpelên parvekirî"
+
+msgid "plugins.generic.frontEndCache.cacheRules"
+msgstr "Rêzikên Cache"
+
+msgid "plugins.generic.frontEndCache.cacheRulesDescription"
+msgstr "Rêzikên cache yên jîrî diyar bikin ku naverokê tenê dema entîteyên girêdayî têne guhertin qedandî dikin. Her rêzikek ji şêwazeke rêyê (regex) û pirsgirêkeke SQL pêk tê ku hash yekgirtinê vedigere."
+
+msgid "plugins.generic.frontEndCache.cacheRulePattern"
+msgstr "Şêwaza Rêyê"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQuery"
+msgstr "Pirsgirêka SQL"
+
+msgid "plugins.generic.frontEndCache.cacheRulePatternHelp"
+msgstr "Dîyarkirina rêkûpêk ji bo hevgirtina rêyan (mînak #issue/view/(\d+)#)"
+
+msgid "plugins.generic.frontEndCache.cacheRuleQueryHelp"
+msgstr "Divê yek rêz û yek stûn vegerîne, wekî hash yekgirtinê tê bikaranîn. Guherbarên berdest: $1..$n (ji bo gihîştina komên girtî), $contextId, $userId, $locale."
+
+msgid "plugins.generic.frontEndCache.resetRules"
+msgstr "Rêzikên Destpêkê Vegerîne"
+
+msgid "plugins.generic.frontEndCache.rulesReset"
+msgstr "Rêzikên cache ji nû ve hatine danîn ser nirxên destpêkê."
