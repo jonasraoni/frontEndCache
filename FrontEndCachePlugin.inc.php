@@ -703,9 +703,14 @@ class FrontEndCachePlugin extends GenericPlugin
 
 			$integrityHash = $this->getIntegrityHash();
 
+			// Filter out Set-Cookie headers to prevent session sharing
+			$headers = array_filter(headers_list(), function (string $header) {
+				return stripos($header, 'Set-Cookie:') !== 0;
+			});
+
 			$cache += [
 				'time' => time(),
-				'headers' => headers_list(),
+				'headers' => $headers,
 				'content' => $output = $this->useCompression ? gzencode($output) : $output,
 				'hash' => crc32($output),
 				'counted' => $this->wasStatisticsTriggered,
@@ -920,5 +925,6 @@ class FrontEndCachePlugin extends GenericPlugin
 		}
 
 		return null;
+	}
 	}
 }
