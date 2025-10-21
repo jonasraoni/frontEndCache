@@ -526,7 +526,7 @@ class FrontEndCachePlugin extends GenericPlugin
 			}
 
 			// Validate that cached redirect won't cause a loop
-			if ($this->hasRedirectLoop($request, $cache)) {
+			if ($this->hasRedirectLoop($this->getRequest(), $cache)) {
 				error_log("FrontEndCache: Cache invalidated due to redirect loop");
 				return null;
 			}
