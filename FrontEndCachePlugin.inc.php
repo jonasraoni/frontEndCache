@@ -962,7 +962,7 @@ class FrontEndCachePlugin extends GenericPlugin
 			return $currentUrl === $redirectUrl;
 		}
 
-		return true;
+		return false;
 	}
 
 }
